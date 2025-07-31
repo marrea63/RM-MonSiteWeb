@@ -1,0 +1,1210 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Accueil</title>
+  <!-- ────────────  C  S  S  ──────────── -->
+  <style>
+    /* décor général */
+    body {
+      height: 100%;
+      width: 100%;
+      font-family: Arial,sans-serif;
+      background: #f4f4f4 url("https://i.postimg.cc/DwgkLjqX/Galaxie.webp") top center no-repeat fixed;
+      background-size: 100% auto;
+      margin: 0px;
+      padding: 0px;
+      display: block;
+    }
+    /* barre d’icônes */
+    .gallery2,.sub-gallery2 {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      width: 100%;
+      margin: 10px 0;
+      justify-content: center;
+    }
+    .thumbnail {
+      width: 170px;
+      height: 50px;
+      object-fit: cover;
+      cursor: pointer;
+      border: 2px solid transparent;
+      border-radius: 4px;
+    }
+    .thumbnail:hover {
+      border:6px solid red;
+    }
+    .selected {
+      border:6px solid red;
+    }
+    /* zone texte */
+    .sub-gallery1 {
+        column-width: 450px;
+        column-gap: 40px;
+        column-fill: auto;
+        padding: 20px;
+        text-align: left;
+    }
+    .sub-gallery1 div[style*="display: none"] {
+      opacity:0;transition:opacity .15s ease;
+    }
+    .sub-gallery1 div[style*="display: block"] {
+      opacity:1;
+    }
+    /* Pour la puce */
+    .line-item .bullet,
+    .series-header .bullet {
+    /*.season-item .bullet*/
+      display: inline-block;
+      vertical-align: center;  /* aligne verticalement la puce par rapport au texte */
+      font-size: 30px;
+      margin-right: 30px;      /* espace entre la puce et le titre – ajuste à ton goût */
+      line-height: 1;
+    }
+    .season-item .bullet {
+      display: inline-block;
+      vertical-align: center;  /* aligne verticalement la puce par rapport au texte */
+      font-size: 30px;
+      margin-left: 30px;
+      line-height: 1;
+      /*margin-right: 10px;      /* espace entre la puce et le titre – ajuste à ton goût */
+    }*/
+    .line-item a, .series-header a, .season-item a {
+      /* display: inLine-block; */
+      vertical-align: center;
+      break-inside: avoid;
+      font-size: 22px;
+      margin-right: 10px;
+      color: #007bff;
+      white-space: normal;
+      padding-left: 50px;
+      text-indent: -70px;
+      text-decoration: none; /* sans soulignement */
+      margin-bottom: 5px;
+      line-height: 1; /* même valeur que .bullet-ep */
+    }
+    .season-item {
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      text-indent: 0px;
+      gap: 8px; 
+      padding-left: 0px; /* 👈 Décale le tout vers la droite */
+    }
+    /* Films / Procédures / Séries */
+    .line-item {
+      cursor:pointer;
+    }
+    .line-item span:last-child {
+      text-align: center;
+      color: #007bff;
+      font-size: 20px;
+      text-decoration: none;
+    }
+    .bullet {
+      display: inLine-block;
+      width: 20px;
+      text-align: center;
+      vertical-align: center;
+      font-size: 10px;
+      line-height: 1;
+      color: #007bff;
+    }
+    .bullet-episode {
+      font-size: 18px;
+      width: 25px;
+      text-align: center;
+      vertical-align: center;
+      line-height: 1;
+      color: #007bff;
+    }
+    .bullet-ep {
+      display: inline-flex;      /* inline-flex pour centrer son contenu */
+      justify-content: center;   /* centre la flèche horizontalement */
+      align-items: left;         /* centre verticalement */
+      vertical-align: center;
+      width: 30px;               /* largeur de la colonne puce */
+      font-size: 18px;           /* taille de la flèche */
+      line-height: 1;
+      transform: translateY(-2px);
+      color: #007bff;
+      margin-left: 0px;   /* 👈 C’est cette ligne qui repousse la flèche vers la droite */
+      margin-right: 0px;  /* 👈 Garde une belle séparation avec le texte de l’épisode */
+    }
+    /* Le texte du titre */
+    .title-text {
+      display: inline-block;
+      vertical-align: center;
+      font-size: 20px;
+      color: #007bff;
+      /* Pas de text-decoration si vous ne voulez pas de soulignement */
+      text-decoration: none;
+      white-space: normal;
+      word-wrap: break-word;  /* Permet de couper le texte si besoin */
+      line-height: 1;
+    }
+    /* titre de série */
+    .series-header {
+      font-size: 22px;
+      color: #007bff;
+      vertical-align: center;
+      cursor: pointer;
+      padding-left: 0px;
+      text-indent: 0px;
+      margin: 0px 0;
+      line-height: 1;
+    }
+    /* vignettes d’images interne */
+    .sub-gallery1 .thumbnail,.sub-gallery2 .thumbnail {
+      background: #fff3e0;
+      border-radius: 10px;
+      width: 200px;
+      height: 120px;
+      object-fit: cover;
+    }
+    /* pied de page */
+    footer {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      background: #333;
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .footer-left {
+      position:absolute;left:15px;
+    }
+    .footer-center {
+      flex-grow:1;text-align:center;
+    }
+    .footer-right {
+      position:absolute;right:20px;
+    }
+    /* Pointeur de souris en doigt */
+    .season-item {
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px; /* essaie avec 6px, 10px… selon ton style */
+    }
+    .line-item {
+      text-align: left;
+    }
+  </style>
+</head>
+
+<body>
+    <!-- <a class="weatherwidget-io" href="https://forecast7.com/fr/49d22n68d15/baie-comeau/" data-label_1="BAIE-COMEAU" data-label_2="MÉTÉO" data-icons="Climacons Animated" data-theme="weather_one" >BAIE-COMEAU MÉTÉO</a>
+    <script>
+      !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src='https://weatherwidget.io/js/widget.min.js';fjs.parentNode.insertBefore(js,fjs);}}(document,'script','weatherwidget-io-js');
+    </script> -->
+
+    <!-- <script>
+        (function(d, s, id) {
+            if (d.getElementById(id)) {
+                if (window.__TOMORROW__) {
+                    window.__TOMORROW__.renderWidget();
+                }
+                return;
+            }
+            const fjs = d.getElementsByTagName(s)[0];
+            const js = d.createElement(s);
+            js.id = id;
+            js.src = "https://www.tomorrow.io/v1/widget/sdk/sdk.bundle.min.js";
+
+            fjs.parentNode.insertBefore(js, fjs);
+        })(document, 'script', 'tomorrow-sdk');
+        </script>
+
+        <div class="tomorrow"
+           data-location-id="016185,016530,016159,016867,016205,016709"
+           data-language="FR"
+           data-unit-system="METRIC"
+           data-skin="dark"
+           data-widget-type="current6"
+           style="padding-bottom:22px;position:relative;">
+          <a
+            href="https://weather.tomorrow.io/"
+            rel="nofollow noopener noreferrer"
+            target="_blank"
+            style="position: absolute; bottom: 0; transform: translateX(-50%); left: 50%;">
+            <img
+              alt="Powered by Tomorrow.io"
+              src="https://weather-website-client.tomorrow.io/img/powered-by.svg"
+              width="250"
+              height="18"
+            />
+          </a>
+        </div> -->
+
+    <div id="ww_0ae55ec744380" v='1.3' loc='id' a='{"t":"ticker","lang":"fr","sl_lpl":1,"ids":["wl4756"],"font":"Arial","sl_ics":"one_a","sl_sot":"celsius","cl_bkg":"image","cl_font":"#FFFFFF","cl_cloud":"#FFFFFF","cl_persp":"#81D4FA","cl_sun":"#FFC107","cl_moon":"#FFC107","cl_thund":"#FF5722"}'>Plus de prévisions: <a href="https://oneweather.org/calgary/30_days/" id="ww_0ae55ec744380_u" target="_blank">Weather forecast Calgary 30 days</a></div><script async src="https://app3.weatherwidget.org/js/?id=ww_0ae55ec744380"></script>
+    
+    <!-- Barre de navigation -->
+    <div class="gallery2">
+    <img src="https://i.postimg.cc/cLBJKH1J/Apps-Courantes.png" class="thumbnail" onclick="showSubGallery('Apps_Courantes','subGallery2')">
+    <img src="https://i.postimg.cc/BvZn20tB/Apps-Reseau.png" class="thumbnail" onclick="showSubGallery('Apps_Reseau','subGallery2')">
+    <img src="https://i.postimg.cc/0Nt2fBwR/Magasins.png" class="thumbnail" onclick="showSubGallery('Magasins','subGallery2')">
+    <img src="https://i.postimg.cc/DZ8fYPrW/Microsoft.png" class="thumbnail" onclick="showSubGallery('Microsoft','subGallery2')">
+    <img src="https://i.postimg.cc/Y9Z2cLRd/No-De-Permis.png" class="thumbnail" onclick="showSubGallery('No_De_Permis','subGallery2')">
+    <img src="https://i.postimg.cc/ZnNbJYD4/Personnel.png" class="thumbnail" onclick="showSubGallery('Personnel','subGallery2')">
+    <img src="https://i.postimg.cc/T36wYm6S/Informations.png" class="thumbnail" onclick="showSubGallery('Informations','subGallery1')">
+    <img src="https://i.postimg.cc/NfTFcDWm/Films.png" class="thumbnail" onclick="showSubGallery('Films','subGallery1')">
+    <img src="https://i.postimg.cc/bYSNxLYW/Series.png" class="thumbnail" onclick="showSubGallery('Series','subGallery1')">
+    </div>
+
+    <!-- conteneurs -->
+    <div id="subGallery1" class="sub-gallery1"></div>
+    <div id="subGallery2" class="sub-gallery2"></div>
+  
+    <script>
+      /* utilitaire */
+      function clearContainer(el){ while(el.firstChild) el.removeChild(el.firstChild); }
+
+      /* Objet Galleries */
+      const Galleries = {
+        gallery1: {
+          Informations: [
+            {
+              title: "Guide pour Sonnette Vidéo WIFI",
+              link: "https://1drv.ms/b/c/34b3a553b5b49bc1/EcGbtLVTpbMggDTUgwAAAAABdytNI4G8W5lQ7bamkmO3AA?e=QisS6f"
+            },          
+            {
+              title: "Liste des films et émissions sur clés USB",
+              link: "https://1drv.ms/x/c/34b3a553b5b49bc1/EWSP34uTck9JjYTiXA7g7v0BkT6PhvFHIgHpezs0iXzPbQ?e=1IF4EJ"
+            },
+            {
+              title: "Rions un peu",
+              link: "https://1drv.ms/f/c/34b3a553b5b49bc1/EjqVtI0-LvBFgbV7y4TOFH4B5alotqwfz0sb_5NfPMrwXA?e=o7ihrt"
+            }
+          ],
+          Films: [
+            {
+              title: "666 La Malédiction",
+              link: "https://1drv.ms/v/c/34b3a553b5b49bc1/Edv3VF_Xzd9Kv4WUysLqta8BUEYqYbrsP6HVtdZN4r2MYA?e=iEFa0S",
+              embed: "https://onedrive.live.com/embed?cid=34b3a553b5b49bc1&id=34B3A553B5B49BC1!s5f54f7dbcdd74adfbf8594cac2eab5af&resid=34B3A553B5B49BC1!s5f54f7dbcdd74adfbf8594cac2eab5af&ithint=video,mp4&embed=1&width=1920&height=1040&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3YvYy8zNGIzYTU1M2I1YjQ5YmMxL0lRVGI5MVJmMTgzZlNyLUZsTXJDNnJXdkFYQWJLcUZaQUJzeXRYRFlsdkRmbWxnP3dpZHRoPTE5MjAmaGVpZ2h0PTEwNDA"
+            },
+            {
+              title: "Air Force One",
+              link: "https://1drv.ms/v/c/34b3a553b5b49bc1/EUS6i7nHbl1MvbllTN_sgVABwrbmPK5VC3F44aqDxfdgdw?e=BstC2C",
+              embed: "https://onedrive.live.com/embed?cid=34b3a553b5b49bc1&id=34B3A553B5B49BC1!sb98bba446ec74c5dbdb9654cdfec8150&resid=34B3A553B5B49BC1!sb98bba446ec74c5dbdb9654cdfec8150&ithint=video,mp4&embed=1&width=720&height=308&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3YvYy8zNGIzYTU1M2I1YjQ5YmMxL0lRUkV1b3U1eDI1ZFRMMjVaVXpmN0lGUUFTLVVmclhWN0thRUFzTXBNN0NISVdNP3dpZHRoPTcyMCZoZWlnaHQ9MzA4"
+            },
+            {
+              title: "Alerte Amber",
+              link: "https://1drv.ms/v/c/34b3a553b5b49bc1/EVtOlsie8XxLi3nikPPbdKgBMgvsoKgFulmg5swOGY715w?e=rfNlvf",
+              embed: "https://onedrive.live.com/embed?cid=34b3a553b5b49bc1&id=34B3A553B5B49BC1!sc8964e5bf19e4b7c8b79e290f3db74a8&resid=34B3A553B5B49BC1!sc8964e5bf19e4b7c8b79e290f3db74a8&ithint=video,mp4&embed=1&width=720&height=406&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3YvYy8zNGIzYTU1M2I1YjQ5YmMxL0lRUmJUcGJJbnZGOFM0dDU0cER6MjNTb0FTZkFkTFA2MTFISnFlZ2FHY040Ylk4P3dpZHRoPTcyMCZoZWlnaHQ9NDA2"
+            },
+            {
+              title: "Apollo 13",
+              link: "https://1drv.ms/v/c/34b3a553b5b49bc1/Eac5n2fUQVpPoldSFWSCF-kBMVGwiyWzxzsu7qSBOuip_Q?e=lSUvnc",
+              embed: "https://onedrive.live.com/embed?cid=34b3a553b5b49bc1&id=34B3A553B5B49BC1!s679f39a741d44f5aa2575215648217e9&resid=34B3A553B5B49BC1!s679f39a741d44f5aa2575215648217e9&ithint=video,mp4&embed=1&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3YvYy8zNGIzYTU1M2I1YjQ5YmMxL0lRU25PWjluMUVGYVQ2SlhVaFZrZ2hmcEFWSHdkX2J3WlYtdnBoYUxvV3E3eGpr"
+            },
+            {
+              title: "Bandit",
+              link: "https://1drv.ms/v/c/34b3a553b5b49bc1/EfNhnYrhFdRGjLGfBCbGvx0BMRqttQEkPPJKa4x4PJiJLg?e=LuZhVV",
+              embed: "https://onedrive.live.com/embed?cid=34b3a553b5b49bc1&id=34B3A553B5B49BC1!s8a9d61f315e146d48cb19f0426c6bf1d&resid=34B3A553B5B49BC1!s8a9d61f315e146d48cb19f0426c6bf1d&ithint=video,mp4&embed=1&width=720&height=302&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3YvYy8zNGIzYTU1M2I1YjQ5YmMxL0lRVHpZWjJLNFJYVVJveXhud1FteHI4ZEFkT0NYaHNfTEo2NkFqdHhnMGlGaER3P3dpZHRoPTcyMCZoZWlnaHQ9MzAy"
+            },
+            {
+              title: "Best Of The Best",
+              link: "https://1drv.ms/v/c/34b3a553b5b49bc1/EQ52LNLACn5Cga3kPuXaNq8Bi_n-9LEjDPV1ZTtEkDxITw?e=G5xPm5",
+              embed: "https://onedrive.live.com/embed?cid=34b3a553b5b49bc1&id=34B3A553B5B49BC1!sd22c760e0ac0427e81ade43ee5da36af&resid=34B3A553B5B49BC1!sd22c760e0ac0427e81ade43ee5da36af&ithint=video,mp4&embed=1&width=1920&height=1040&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3YvYy8zNGIzYTU1M2I1YjQ5YmMxL0lRUU9kaXpTd0FwLVFvR3Q1RDdsMmphdkFkd0hwa0lrVm5MdUFRY0lITmdnbC1zP3dpZHRoPTE5MjAmaGVpZ2h0PTEwNDA"
+            },
+            {
+              title: "Blackout",
+              link: "https://1drv.ms/v/c/34b3a553b5b49bc1/EdPCYzSh7RpEsaKfWNLbzOgBXXvm6jCCdusRjhec04hkEg?e=8bC43Q",
+              embed: "https://onedrive.live.com/embed?cid=34b3a553b5b49bc1&id=34B3A553B5B49BC1!s3463c2d3eda1441ab1a29f58d2dbcce8&resid=34B3A553B5B49BC1!s3463c2d3eda1441ab1a29f58d2dbcce8&ithint=video,mp4&embed=1&width=720&height=304&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3YvYy8zNGIzYTU1M2I1YjQ5YmMxL0lRVFR3bU0wb2UwYVJMR2luMWpTMjh6b0FmOFdrOEU1RUZjMmFfZ0xMVnprdU9ZP3dpZHRoPTcyMCZoZWlnaHQ9MzA0"
+            },
+            {
+              title: "Blonde",
+              link: "https://1drv.ms/v/c/34b3a553b5b49bc1/EcGbtLVTpbMggDQIlgAAAAABd9r_yJT1nDvc8gfrdt1nEQ?e=oATzO1",
+              embed: "https://onedrive.live.com/embed?cid=34b3a553b5b49bc1&id=34B3A553B5B49BC1!38408&resid=34B3A553B5B49BC1!38408&ithint=video,mp4&embed=1&width=1440&height=1080&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3YvYy8zNGIzYTU1M2I1YjQ5YmMxL0lRVEJtN1MxVTZXeklJQTBDSllBQUFBQUFmQ2sxN2NhQml4Tk1sdDg3ak03TnM0P3dpZHRoPTE0NDAmaGVpZ2h0PTEwODA"
+            },
+            {
+              title: "Blood",
+              link: "https://1drv.ms/v/c/34b3a553b5b49bc1/EbRPnbOhVYFDi8xab1-4ijEBmmWcy4QkCSU10qHbDAihNQ?e=YMPOK3",
+              embed: "https://onedrive.live.com/embed?cid=34b3a553b5b49bc1&id=34B3A553B5B49BC1!sb39d4fb455a143818bcc5a6f5fb88a31&resid=34B3A553B5B49BC1!sb39d4fb455a143818bcc5a6f5fb88a31&ithint=video,mp4&embed=1&width=720&height=298&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3YvYy8zNGIzYTU1M2I1YjQ5YmMxL0lRUzBUNTJ6b1ZXQlE0dk1XbTlmdUlveEFXQ2ZJQWhsRjdjcFZ5cVJnT1JWa1FFP3dpZHRoPTcyMCZoZWlnaHQ9Mjk4"
+            },
+            {
+              title: "Boxer",
+              link: "https://1drv.ms/v/c/34b3a553b5b49bc1/EcMvNTnA67RFlyLejONtEKQB-rDewf4SwdRM_hNizno-ng?e=gHwbZu",
+              embed: "https://onedrive.live.com/embed?cid=34b3a553b5b49bc1&id=34B3A553B5B49BC1!s39352fc3ebc045b49722de8ce36d10a4&resid=34B3A553B5B49BC1!s39352fc3ebc045b49722de8ce36d10a4&ithint=video,mp4&embed=1&width=720&height=406&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3YvYy8zNGIzYTU1M2I1YjQ5YmMxL0lRVERMelU1d091MFJaY2kzb3pqYlJDa0FUMENYOHRRMGlyWlR0MkVDci10aEdzP3dpZHRoPTcyMCZoZWlnaHQ9NDA2"
+            },
+            {
+              title: "Commando",
+              link: "https://1drv.ms/v/c/34b3a553b5b49bc1/ETFltT78MchKl2iscRRqWPcBbjyPDh8zJYHp0Zdl7upxJw?e=2N1dpE",
+              embed: "https://onedrive.live.com/embed?cid=34b3a553b5b49bc1&id=34B3A553B5B49BC1!s3eb5653131fc4ac89768ac71146a58f7&resid=34B3A553B5B49BC1!s3eb5653131fc4ac89768ac71146a58f7&ithint=video,mp4&embed=1&width=1920&height=1038&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3YvYy8zNGIzYTU1M2I1YjQ5YmMxL0lRUXhaYlUtX0RISVNwZG9ySEVVYWxqM0FhSEJRRmJvdWdTeUJpcG1MckdCbS1rP3dpZHRoPTE5MjAmaGVpZ2h0PTEwMzg"
+            },
+            {
+              title: "Conclave",
+              link: "https://1drv.ms/v/c/34b3a553b5b49bc1/EW8Tz1bJK-lCt4YHbqL_qcwByH8wh8b0dCp5nUjSZjfffQ?e=UbYT2i",
+              embed: "https://onedrive.live.com/embed?cid=34b3a553b5b49bc1&id=34B3A553B5B49BC1!s56cf136f2bc942e9b786076ea2ffa9cc&resid=34B3A553B5B49BC1!s56cf136f2bc942e9b786076ea2ffa9cc&ithint=video,mp4&embed=1&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3YvYy8zNGIzYTU1M2I1YjQ5YmMxL0lRUnZFODlXeVN2cFFyZUdCMjZpXzZuTUFSeVNmYXhtNzZEd0xZbk1aenh5R1Fz"
+            },
+            {
+              title: "Est-Ce Que Tu Crois?",
+              link: "https://1drv.ms/v/c/34b3a553b5b49bc1/EbLnXn9s5GdJrBv0Tqj_gdsBqew7WILiLv3Wu3OAA4TKTQ?e=fOnELQ",
+              embed: "https://onedrive.live.com/embed?cid=34b3a553b5b49bc1&id=34B3A553B5B49BC1!s7f5ee7b2e46c4967ac1bf44ea8ff81db&resid=34B3A553B5B49BC1!s7f5ee7b2e46c4967ac1bf44ea8ff81db&ithint=video,mp4&embed=1&width=720&height=408&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3YvYy8zNGIzYTU1M2I1YjQ5YmMxL0lRU3k1MTVfYk9SblNhd2I5RTZvXzRIYkFiVWprZEt0WHFfZVk4RzlDUVAxYnJJP3dpZHRoPTcyMCZoZWlnaHQ9NDA4"
+            },
+            {
+              title: "Faineant Es",
+              link: "https://1drv.ms/v/c/34b3a553b5b49bc1/EeXUmcY9jmBGlS8v36jnSGIBflIXZSO6ZWeyWHfHAuqpAg?e=AsHLjO",
+              embed: "https://onedrive.live.com/embed?cid=34b3a553b5b49bc1&id=34B3A553B5B49BC1!sc699d4e58e3d4660952f2fdfa8e74862&resid=34B3A553B5B49BC1!sc699d4e58e3d4660952f2fdfa8e74862&ithint=video,mp4&embed=1&width=720&height=406&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3YvYy8zNGIzYTU1M2I1YjQ5YmMxL0lRVGwxSm5HUFk1Z1JwVXZMOS1vNTBoaUFaQmkyNWFGLUNGMExlZ1JJUlprOFVzP3dpZHRoPTcyMCZoZWlnaHQ9NDA2"
+            },
+            {
+              title: "Florence Foster Jenkins",
+              link: "https://1drv.ms/v/c/34b3a553b5b49bc1/EcGbtLVTpbMggDSghgAAAAABO941vgaMKsPjoDm1whiSzA?e=A5b7cF",
+              embed: "https://onedrive.live.com/embed?cid=34b3a553b5b49bc1&id=34B3A553B5B49BC1!34464&resid=34B3A553B5B49BC1!34464&ithint=video,mp4&embed=1&width=1920&height=800&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3YvYy8zNGIzYTU1M2I1YjQ5YmMxL0lRVEJtN1MxVTZXeklJQTBvSVlBQUFBQUFYT3laSTVUU0hnWFFUNDVnRHo1bFpJP3dpZHRoPTE5MjAmaGVpZ2h0PTgwMA"
+            },
+            {
+              title: "Gladiateur",
+              link: "https://1drv.ms/v/c/34b3a553b5b49bc1/EQy7GYuebhRNkzGhgowPM_YBB6BFy4K17yFjM5mLTCT1Sw?e=faWvQg",
+              embed: "https://onedrive.live.com/embed?cid=34b3a553b5b49bc1&id=34B3A553B5B49BC1!s8b19bb0c6e9e4d149331a1828c0f33f6&resid=34B3A553B5B49BC1!s8b19bb0c6e9e4d149331a1828c0f33f6&ithint=video,mp4&embed=1&width=1920&height=816&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3YvYy8zNGIzYTU1M2I1YjQ5YmMxL0lRUU11eG1Mbm00VVRaTXhvWUtNRHpQMkFaaFM5NHJWc1lJRmMta2FWRjZCWTV3P3dpZHRoPTE5MjAmaGVpZ2h0PTgxNg"
+            },
+            {
+              title: "Heist",
+              link: "https://1drv.ms/v/c/34b3a553b5b49bc1/EdT-mMk669xMs1YAzAIzp54BuLWZIOn-gzMDiIq29osnZg?e=KzKQFY",
+              embed: "https://onedrive.live.com/embed?cid=34b3a553b5b49bc1&id=34B3A553B5B49BC1!sc998fed4eb3a4cdcb35600cc0233a79e&resid=34B3A553B5B49BC1!sc998fed4eb3a4cdcb35600cc0233a79e&ithint=video,mp4&embed=1&width=720&height=300&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3YvYy8zNGIzYTU1M2I1YjQ5YmMxL0lRVFVfcGpKT3V2Y1RMTldBTXdDTTZlZUFZNVVJY2lPOXlDNmxzYmRqZkZfR1ZBP3dpZHRoPTcyMCZoZWlnaHQ9MzAw"
+            },
+            {
+              title: "Présumé.Innocent",
+              link: "https://1drv.ms/v/c/34b3a553b5b49bc1/Ea2Upy9ArHlIvqk9w7tf9-AB3-KNowfj43NXg2bXhO3xEA?e=FdmIRv",
+              embed: "https://onedrive.live.com/embed?cid=34b3a553b5b49bc1&id=34B3A553B5B49BC1!s2fa794adac404879bea93dc3bb5ff7e0&resid=34B3A553B5B49BC1!s2fa794adac404879bea93dc3bb5ff7e0&ithint=video,mp4&embed=1&width=1920&height=960&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3YvYy8zNGIzYTU1M2I1YjQ5YmMxL0lRU3RsS2N2UUt4NVNMNnBQY083WF9mZ0FTa2dDaGZ5eXFJQ2d1ellUNlpFRWpRP3dpZHRoPTE5MjAmaGVpZ2h0PTk2MA"
+            },
+            {
+              title: "The Equalizer 1",
+              link: "https://1drv.ms/v/c/34b3a553b5b49bc1/Ef3IW_bPgfJEt2nXQ4lRno0BNBU3EcfLwUSh2K2y-4Rvsw?e=Cw58ba",
+              embed: "https://onedrive.live.com/embed?cid=34b3a553b5b49bc1&id=34B3A553B5B49BC1!sf65bc8fd81cf44f2b769d74389519e8d&resid=34B3A553B5B49BC1!sf65bc8fd81cf44f2b769d74389519e8d&ithint=video,mp4&embed=1&width=720&height=304&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3YvYy8zNGIzYTU1M2I1YjQ5YmMxL0lRVDl5RnYyejRIeVJMZHAxME9KVVo2TkFlaUhROGZjVkF1RkJQZ2hHZVM3TVMwP3dpZHRoPTcyMCZoZWlnaHQ9MzA0"
+            },
+            {
+              title: "The Equalizer 2",
+              link: "https://1drv.ms/v/c/34b3a553b5b49bc1/ETEoSdI8z6FNt2RaNmSQNVABypeQxA-R9lb-26yoUcraEw?e=9rUNBm",
+              embed: "https://onedrive.live.com/embed?cid=34b3a553b5b49bc1&id=34B3A553B5B49BC1!sd2492831cf3c4da1b7645a3664903550&resid=34B3A553B5B49BC1!sd2492831cf3c4da1b7645a3664903550&ithint=video,mp4&embed=1&width=720&height=304&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3YvYy8zNGIzYTU1M2I1YjQ5YmMxL0lRUXhLRW5TUE0taFRiZGtXalpra0RWUUFZYm1KOWZHcHNWQjNYeEw4VGtIVDRjP3dpZHRoPTcyMCZoZWlnaHQ9MzA0"
+            },
+            {
+              title: "The Equalizer 3",
+              link: "https://1drv.ms/v/c/34b3a553b5b49bc1/Eb9K_OP1mhFPvsLGL3YATIYBySa3FU8kogRM0aUiQfyKCQ?e=pahgzh",
+              embed: "https://onedrive.live.com/embed?cid=34b3a553b5b49bc1&id=34B3A553B5B49BC1!se3fc4abf9af54f11bec2c62f76004c86&resid=34B3A553B5B49BC1!se3fc4abf9af54f11bec2c62f76004c86&ithint=video,mp4&embed=1&width=1920&height=800&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3YvYy8zNGIzYTU1M2I1YjQ5YmMxL0lRU19TdnpqOVpvUlQ3N0N4aTkyQUV5R0FYZW5UQ3NqVmswNF9aVkYxMklJaWxVP3dpZHRoPTE5MjAmaGVpZ2h0PTgwMA"
+            },
+            {
+              title: "Tornade",
+              link: "https://1drv.ms/v/c/34b3a553b5b49bc1/EcGbtLVTpbMggDS0iAAAAAABEFn8avvnMiAyGcZAOilaOg?e=DqzJMB",
+              embed: "https://onedrive.live.com/embed?cid=34b3a553b5b49bc1&id=34B3A553B5B49BC1!34996&resid=34B3A553B5B49BC1!34996&ithint=video,mp4&embed=1&width=1918&height=802&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3YvYy8zNGIzYTU1M2I1YjQ5YmMxL0lRVEJtN1MxVTZXeklJQTB0SWdBQUFBQUFaUUxRejJGOTNXR1VOZWRKYzQwM0dRP3dpZHRoPTE5MTgmaGVpZ2h0PTgwMg"
+            },
+            {
+              title: "Tornade De Feu",
+              link: "https://1drv.ms/v/c/34b3a553b5b49bc1/EYBo_frikNJInNJ0uupf_XoBgq3tWhEPBAbbTVF8ya_NWw?e=iuiLyy",
+              embed: "https://onedrive.live.com/embed?cid=34b3a553b5b49bc1&id=34B3A553B5B49BC1!sfafd688090e248d29cd274baea5ffd7a&resid=34B3A553B5B49BC1!sfafd688090e248d29cd274baea5ffd7a&ithint=video,mp4&embed=1&width=1912&height=1080&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3YvYy8zNGIzYTU1M2I1YjQ5YmMxL0lRU0FhUDM2NHBEU1NKelNkTHJxWF8xNkFkd3AydlhJTDRMTk5sZ2RoX3dmYVZNP3dpZHRoPTE5MTImaGVpZ2h0PTEwODA"
+            },
+            {
+              title: "Vidéos de la famille Martin",
+              link: "https://1drv.ms/f/c/34b3a553b5b49bc1/ErPIziLkuOZJvIpnzRVo9oIBHd_YG65M5pzmf-e1kiNBrA?e=ktuH2f"
+            }
+          ],
+          Series: [
+            {
+              title: "Bob Gratton - Ma vie My life",
+              subItems: [
+                {
+                  title: "Saison 1",
+                  episodes: [
+                    {
+                      title: "Épisode 1",
+                      link: "https://onedrive.live.com/embed?cid=34b3a553b5b49bc1&id=34B3A553B5B49BC1!34477&resid=34B3A553B5B49BC1!34477&ithint=video,mp4&embed=1&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3YvYy8zNGIzYTU1M2I1YjQ5YmMxL0lRVEJtN1MxVTZXeklJQTByWVlBQUFBQUFVYzJIQWRhMlFxLU5qNWVmUENLZGRj"
+                    },
+                    {
+                      title: "Épisode 2",
+                      link: "https://onedrive.live.com/embed?cid=34b3a553b5b49bc1&id=34B3A553B5B49BC1!34476&resid=34B3A553B5B49BC1!34476&ithint=video,mp4&embed=1&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3YvYy8zNGIzYTU1M2I1YjQ5YmMxL0lRVEJtN1MxVTZXeklJQTBySVlBQUFBQUFma3lIM0NjSHJHX2lwaW5yN2d2ejFF"
+                    },
+                    {
+                      title: "Épisode 3",
+                      link: "https://onedrive.live.com/embed?cid=34b3a553b5b49bc1&id=34B3A553B5B49BC1!34479&resid=34B3A553B5B49BC1!34479&ithint=video,mp4&embed=1&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3YvYy8zNGIzYTU1M2I1YjQ5YmMxL0lRVEJtN1MxVTZXeklJQTByNFlBQUFBQUFaRmdPWHFWOHVvY1A1cWN3NmRKVjZz"
+                    },
+                    {
+                      title: "Épisode 4",
+                      link: "https://onedrive.live.com/embed?cid=34b3a553b5b49bc1&id=34B3A553B5B49BC1!34480&resid=34B3A553B5B49BC1!34480&ithint=video,mp4&embed=1&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3YvYy8zNGIzYTU1M2I1YjQ5YmMxL0lRVEJtN1MxVTZXeklJQTBzSVlBQUFBQUFYMWNuMzlzdWEtVndoWTctN2pGZ2Qw"
+                    },
+                    {
+                      title: "Épisode 5",
+                      link: "https://onedrive.live.com/embed?cid=34b3a553b5b49bc1&id=34B3A553B5B49BC1!34481&resid=34B3A553B5B49BC1!34481&ithint=video,mp4&embed=1&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3YvYy8zNGIzYTU1M2I1YjQ5YmMxL0lRVEJtN1MxVTZXeklJQTBzWVlBQUFBQUFYeFFaamhreDdPQUpwUGRiRmpjMkV3"
+                    },
+                    {
+                      title: "Épisode 6",
+                      link: "https://onedrive.live.com/embed?cid=34b3a553b5b49bc1&id=34B3A553B5B49BC1!34482&resid=34B3A553B5B49BC1!34482&ithint=video,mp4&embed=1&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3YvYy8zNGIzYTU1M2I1YjQ5YmMxL0lRVEJtN1MxVTZXeklJQTBzb1lBQUFBQUFYQ0xpSDJzZ294VVNWcVpoZThHRHlR"
+                    },
+                    {
+                      title: "Épisode 7",
+                      link: "https://onedrive.live.com/embed?cid=34b3a553b5b49bc1&id=34B3A553B5B49BC1!34483&resid=34B3A553B5B49BC1!34483&ithint=video,mp4&embed=1&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3YvYy8zNGIzYTU1M2I1YjQ5YmMxL0lRVEJtN1MxVTZXeklJQTBzNFlBQUFBQUFkQlpVN1dzOXZPRGIxQ3YyRUc2N05R"
+                    },
+                    {
+                      title: "Épisode 8",
+                      link: "https://onedrive.live.com/embed?cid=34b3a553b5b49bc1&id=34B3A553B5B49BC1!34484&resid=34B3A553B5B49BC1!34484&ithint=video,mp4&embed=1&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3YvYy8zNGIzYTU1M2I1YjQ5YmMxL0lRVEJtN1MxVTZXeklJQTB0SVlBQUFBQUFSTHVHUk1QTnpyWU9Bbmt1R2NDOFRR"
+                    },
+                    {
+                      title: "Épisode 9",
+                      link: "https://onedrive.live.com/embed?cid=34b3a553b5b49bc1&id=34B3A553B5B49BC1!34485&resid=34B3A553B5B49BC1!34485&ithint=video,mp4&embed=1&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3YvYy8zNGIzYTU1M2I1YjQ5YmMxL0lRVEJtN1MxVTZXeklJQTB0WVlBQUFBQUFjRVdXOTh3REQwMVUwTkVJV3BlUjVv"
+                    },
+                    {
+                      title: "Épisode 10",
+                      link: "https://onedrive.live.com/embed?cid=34b3a553b5b49bc1&id=34B3A553B5B49BC1!34486&resid=34B3A553B5B49BC1!34486&ithint=video,mp4&embed=1&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3YvYy8zNGIzYTU1M2I1YjQ5YmMxL0lRVEJtN1MxVTZXeklJQTB0b1lBQUFBQUFUMjZGSU5FUEVPNGxWUFk0QmpPMUM4"
+                    },
+                    {
+                      title: "Épisode 11",
+                      link: "https://onedrive.live.com/embed?cid=34b3a553b5b49bc1&id=34B3A553B5B49BC1!34487&resid=34B3A553B5B49BC1!34487&ithint=video,mp4&embed=1&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3YvYy8zNGIzYTU1M2I1YjQ5YmMxL0lRVEJtN1MxVTZXeklJQTB0NFlBQUFBQUFia0JUTGIwOThiUDkxMHBkWl91VXBZ"
+                    },
+                    {
+                      title: "Épisode 12",
+                      link: "https://onedrive.live.com/embed?cid=34b3a553b5b49bc1&id=34B3A553B5B49BC1!34488&resid=34B3A553B5B49BC1!34488&ithint=video,mp4&embed=1&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3YvYy8zNGIzYTU1M2I1YjQ5YmMxL0lRVEJtN1MxVTZXeklJQTB1SVlBQUFBQUFaZUNWSUwwbUstTFpaaWthSnJPV3g0"
+                    },
+                    {
+                      title: "Épisode 13",
+                      link: "https://onedrive.live.com/embed?cid=34b3a553b5b49bc1&id=34B3A553B5B49BC1!34489&resid=34B3A553B5B49BC1!34489&ithint=video,mp4&embed=1&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3YvYy8zNGIzYTU1M2I1YjQ5YmMxL0lRVEJtN1MxVTZXeklJQTB1WVlBQUFBQUFab0ZIV2hmVXpUbUtwV0tIN200UTlR"
+                    } // Ferme à l'épisode 13
+                  ], // Ferme la saison 1
+                }, // Prêt pour la saison 2
+                {
+                  title: "Saison 2",
+                  episodes: [
+                    {
+                      title: "Épisode 1",
+                      link: "https://onedrive.live.com/embed?cid=34b3a553b5b49bc1&id=34B3A553B5B49BC1!34490&resid=34B3A553B5B49BC1!34490&ithint=video,mp4&embed=1&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3YvYy8zNGIzYTU1M2I1YjQ5YmMxL0lRVEJtN1MxVTZXeklJQTB1b1lBQUFBQUFUQWI3ak9SRzdHRnlYbk1zaGN0VGZV"
+                    },
+                    {
+                      title: "Épisode 2",
+                      link: "https://onedrive.live.com/embed?cid=34b3a553b5b49bc1&id=34B3A553B5B49BC1!34491&resid=34B3A553B5B49BC1!34491&ithint=video,mp4&embed=1&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3YvYy8zNGIzYTU1M2I1YjQ5YmMxL0lRVEJtN1MxVTZXeklJQTB1NFlBQUFBQUFYMEFhelRyRXdNUnJfUWRYYlBjNFVj"
+                    },
+                    {
+                      title: "Épisode 3",
+                      link: "https://onedrive.live.com/embed?cid=34b3a553b5b49bc1&id=34B3A553B5B49BC1!34492&resid=34B3A553B5B49BC1!34492&ithint=video,mp4&embed=1&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3YvYy8zNGIzYTU1M2I1YjQ5YmMxL0lRVEJtN1MxVTZXeklJQTB2SVlBQUFBQUFjSVlXZ2xERUZGYk9VUjVzR3pZMDhR"
+                    },
+                    {
+                      title: "Épisode 4",
+                      link: "https://onedrive.live.com/embed?cid=34b3a553b5b49bc1&id=34B3A553B5B49BC1!34493&resid=34B3A553B5B49BC1!34493&ithint=video,mp4&embed=1&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3YvYy8zNGIzYTU1M2I1YjQ5YmMxL0lRVEJtN1MxVTZXeklJQTB2WVlBQUFBQUFlcXpfUzNYMHNhQjkycHhQOFY0dWk0"
+                    },
+                    {
+                      title: "Épisode 5",
+                      link: "https://onedrive.live.com/embed?cid=34b3a553b5b49bc1&id=34B3A553B5B49BC1!34494&resid=34B3A553B5B49BC1!34494&ithint=video,mp4&embed=1&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3YvYy8zNGIzYTU1M2I1YjQ5YmMxL0lRVEJtN1MxVTZXeklJQTB2b1lBQUFBQUFkRWhqcDdXMVI2b3BsbTNpcWkxUUpJ"
+                    },
+                    {
+                      title: "Épisode 6",
+                      link: "https://onedrive.live.com/embed?cid=34b3a553b5b49bc1&id=34B3A553B5B49BC1!34495&resid=34B3A553B5B49BC1!34495&ithint=video,mp4&embed=1&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3YvYy8zNGIzYTU1M2I1YjQ5YmMxL0lRVEJtN1MxVTZXeklJQTB2NFlBQUFBQUFiaVlFd3NYbDA3MkVmS0JWbTdRbFhn"
+                    },
+                    {
+                      title: "Épisode 7",
+                      link: "https://onedrive.live.com/embed?cid=34b3a553b5b49bc1&id=34B3A553B5B49BC1!34496&resid=34B3A553B5B49BC1!34496&ithint=video,mp4&embed=1&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3YvYy8zNGIzYTU1M2I1YjQ5YmMxL0lRVEJtN1MxVTZXeklJQTB3SVlBQUFBQUFadU9DRWRSN1I5UHg0S2FCU2kxU1Yw"
+                    },
+                    {
+                      title: "Épisode 8",
+                      link: "https://onedrive.live.com/embed?cid=34b3a553b5b49bc1&id=34B3A553B5B49BC1!34497&resid=34B3A553B5B49BC1!34497&ithint=video,mp4&embed=1&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3YvYy8zNGIzYTU1M2I1YjQ5YmMxL0lRVEJtN1MxVTZXeklJQTB3WVlBQUFBQUFTeERaSGtCbWp5Q296ZXNySlZnUnI0"
+                    },
+                    {
+                      title: "Épisode 9",
+                      link: "https://onedrive.live.com/embed?cid=34b3a553b5b49bc1&id=34B3A553B5B49BC1!34498&resid=34B3A553B5B49BC1!34498&ithint=video,mp4&embed=1&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3YvYy8zNGIzYTU1M2I1YjQ5YmMxL0lRVEJtN1MxVTZXeklJQTB3b1lBQUFBQUFVeXhnXy1Xd3o3RlJiUmpoQWdheXFJ"
+                    },
+                    {
+                      title: "Épisode 10",
+                      link: "https://onedrive.live.com/embed?cid=34b3a553b5b49bc1&id=34B3A553B5B49BC1!34503&resid=34B3A553B5B49BC1!34503&ithint=video,mp4&embed=1&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3YvYy8zNGIzYTU1M2I1YjQ5YmMxL0lRVEJtN1MxVTZXeklJQTB4NFlBQUFBQUFZemg3ZlBEeUNjQTd1alk0MUNPOHo4"
+                    },
+                    {
+                      title: "Épisode 11",
+                      link: "https://onedrive.live.com/embed?cid=34b3a553b5b49bc1&id=34B3A553B5B49BC1!34502&resid=34B3A553B5B49BC1!34502&ithint=video,mp4&embed=1&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3YvYy8zNGIzYTU1M2I1YjQ5YmMxL0lRVEJtN1MxVTZXeklJQTB4b1lBQUFBQUFWQnBRQjEwT1pNM2g1UFl1SVU1WDNZ"
+                    },
+                    {
+                      title: "Épisode 12",
+                      link: "https://onedrive.live.com/embed?cid=34b3a553b5b49bc1&id=34B3A553B5B49BC1!34499&resid=34B3A553B5B49BC1!34499&ithint=video,mp4&embed=1&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3YvYy8zNGIzYTU1M2I1YjQ5YmMxL0lRVEJtN1MxVTZXeklJQTB3NFlBQUFBQUFYeTFkRXN5bEFrMGlIbEtfOUM4dGlJ"
+                    },
+                    {
+                      title: "Épisode 13",
+                      link: "https://onedrive.live.com/embed?cid=34b3a553b5b49bc1&id=34B3A553B5B49BC1!34501&resid=34B3A553B5B49BC1!34501&ithint=video,mp4&embed=1&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3YvYy8zNGIzYTU1M2I1YjQ5YmMxL0lRVEJtN1MxVTZXeklJQTB4WVlBQUFBQUFVeFNrNzBUZjh0QWFzRzBKS0l2ck4w"
+                    } // Ferme à l'épisode 13
+                  ], // Ferme la saison 2
+                }, // Prêt pour la saison 3
+                {
+                  title: "Saison 3",
+                  episodes: [
+                    {
+                      title: "Épisode 1",
+                      link: "https://onedrive.live.com/embed?cid=34b3a553b5b49bc1&id=34B3A553B5B49BC1!34504&resid=34B3A553B5B49BC1!34504&ithint=video,mp4&embed=1&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3YvYy8zNGIzYTU1M2I1YjQ5YmMxL0lRVEJtN1MxVTZXeklJQTB5SVlBQUFBQUFSTXRTNGFqejh5UTFDNkxhRl9qeGt3"
+                    },
+                    {
+                      title: "Épisode 2",
+                      link: "https://onedrive.live.com/embed?cid=34b3a553b5b49bc1&id=34B3A553B5B49BC1!34505&resid=34B3A553B5B49BC1!34505&ithint=video,mp4&embed=1&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3YvYy8zNGIzYTU1M2I1YjQ5YmMxL0lRVEJtN1MxVTZXeklJQTB5WVlBQUFBQUFYRWswMGFoX0I2NkJRelRLakxYZ1M4"
+                    },
+                    {
+                      title: "Épisode 3",
+                      link: "https://onedrive.live.com/embed?cid=34b3a553b5b49bc1&id=34B3A553B5B49BC1!34506&resid=34B3A553B5B49BC1!34506&ithint=video,mp4&embed=1&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3YvYy8zNGIzYTU1M2I1YjQ5YmMxL0lRVEJtN1MxVTZXeklJQTB5b1lBQUFBQUFRMlpSRXJWVzVQeXVWTGdlMGdnSzdF"
+                    },
+                    {
+                      title: "Épisode 4",
+                      link: "https://onedrive.live.com/embed?cid=34b3a553b5b49bc1&id=34B3A553B5B49BC1!34507&resid=34B3A553B5B49BC1!34507&ithint=video,mp4&embed=1&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3YvYy8zNGIzYTU1M2I1YjQ5YmMxL0lRVEJtN1MxVTZXeklJQTB5NFlBQUFBQUFVMU9BVjlBRU5PSVRabzg1Um9wQklN"
+                    },
+                    {
+                      title: "Épisode 5",
+                      link: "https://onedrive.live.com/embed?cid=34b3a553b5b49bc1&id=34B3A553B5B49BC1!34508&resid=34B3A553B5B49BC1!34508&ithint=video,mp4&embed=1&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3YvYy8zNGIzYTU1M2I1YjQ5YmMxL0lRVEJtN1MxVTZXeklJQTB6SVlBQUFBQUFVVzEtbENtMGRJbGNDNm5ZMU1oSEpn"
+                    },
+                    {
+                      title: "Épisode 6",
+                      link: "https://onedrive.live.com/embed?cid=34b3a553b5b49bc1&id=34B3A553B5B49BC1!34509&resid=34B3A553B5B49BC1!34509&ithint=video,mp4&embed=1&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3YvYy8zNGIzYTU1M2I1YjQ5YmMxL0lRVEJtN1MxVTZXeklJQTB6WVlBQUFBQUFVaG44UlBnOGcwMjB6YVhUb2N5V3pz"
+                    },
+                    {
+                      title: "Épisode 7",
+                      link: "https://onedrive.live.com/embed?cid=34b3a553b5b49bc1&id=34B3A553B5B49BC1!34510&resid=34B3A553B5B49BC1!34510&ithint=video,mp4&embed=1&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3YvYy8zNGIzYTU1M2I1YjQ5YmMxL0lRVEJtN1MxVTZXeklJQTB6b1lBQUFBQUFWbXBIeHNKRmw0a19pNnp6NkUzS3lF"
+                    },
+                    {
+                      title: "Épisode 8",
+                      link: "https://onedrive.live.com/embed?cid=34b3a553b5b49bc1&id=34B3A553B5B49BC1!34511&resid=34B3A553B5B49BC1!34511&ithint=video,mp4&embed=1&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3YvYy8zNGIzYTU1M2I1YjQ5YmMxL0lRVEJtN1MxVTZXeklJQTB6NFlBQUFBQUFYalVneWN5SUhERndKbUJoUUY0V1o4"
+                    },
+                    {
+                      title: "Épisode 9",
+                      link: "https://onedrive.live.com/embed?cid=34b3a553b5b49bc1&id=34B3A553B5B49BC1!34512&resid=34B3A553B5B49BC1!34512&ithint=video,mp4&embed=1&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3YvYy8zNGIzYTU1M2I1YjQ5YmMxL0lRVEJtN1MxVTZXeklJQTAwSVlBQUFBQUFkOHpwdk55Y3d2bVN0eEZmX1VEQkZR"
+                    },
+                    {
+                      title: "Épisode 13",
+                      link: "https://onedrive.live.com/embed?cid=34b3a553b5b49bc1&id=34B3A553B5B49BC1!34513&resid=34B3A553B5B49BC1!34513&ithint=video,mp4&embed=1&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3YvYy8zNGIzYTU1M2I1YjQ5YmMxL0lRVEJtN1MxVTZXeklJQTAwWVlBQUFBQUFWUUlWaEF6bnRuNWZ0QjNBVzRpLXdR"
+                    } // Ferme à l'épisode 13
+                  ], // Ferme la saison 3
+                }, // Prêt pour la prochaine série
+              ],
+            },
+                {
+              title: "Breaking Bad - Le Chimiste",
+              subItems: [
+                {
+                  title: "Saison 1",
+                  link: "https://1drv.ms/f/c/34b3a553b5b49bc1/EsGbtLVTpbMggDSphQAAAAABn9AIOVSoXq0XJz4f7cylIw?e=pu87kb"
+                },
+                {
+                  title: "Saison 2",
+                  link: "https://1drv.ms/f/c/34b3a553b5b49bc1/EsGbtLVTpbMggDSrhQAAAAABIQTIhR-XYR6b2FBUuuUS4g?e=ARP0Ce"
+                },
+                {
+                  title: "Saison 3",
+                  link: "https://1drv.ms/f/c/34b3a553b5b49bc1/EsGbtLVTpbMggDSvhQAAAAABG04X1_WOOkHv4VtluONnMw?e=FbqTEj"
+                },
+                {
+                  title: "Saison 4",
+                  link: "https://1drv.ms/f/c/34b3a553b5b49bc1/EsGbtLVTpbMggDSzhQAAAAAB0hjaO9CdSe1wm8GGrmRrCg?e=Oe0mQG"
+                },
+                {
+                  title: "Saison 5",
+                  link: "https://1drv.ms/f/c/34b3a553b5b49bc1/EsGbtLVTpbMggDS3hQAAAAABeNheEtgWlZ_Rve_g0Hvdtw?e=lJA03d"
+                },
+                {
+                  title: "Saison 6",
+                  link: "https://1drv.ms/f/c/34b3a553b5b49bc1/EsGbtLVTpbMggDS6hQAAAAABAM8W5ZmgMHgPe0rwlAF8xA?e=FmUzdz"
+                } // Ferme à l'épisode 6
+              ], // Ferme subItems la série
+            }, // Prêt pour la prochaine série
+            {
+              title: "Les Bougon",
+              subItems: [
+                {
+                  title: "Saison 1",
+                  episodes: [
+                    {
+                      title: "Épisode 1",
+                      link: "https://onedrive.live.com/embed?cid=34b3a553b5b49bc1&id=34B3A553B5B49BC1!24780&resid=34B3A553B5B49BC1!24780&ithint=video,mp4&embed=1&width=592&height=448&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3YvYy8zNGIzYTU1M2I1YjQ5YmMxL0lRVEJtN1MxVTZXeklJQTB6R0FBQUFBQUFWcFpBYk96RVdCZzNQemdqNnB4cnAwP3dpZHRoPTU5MiZoZWlnaHQ9NDQ4"
+                    },
+                    {
+                      title: "Épisode 2",
+                      link: "https://onedrive.live.com/embed?cid=34b3a553b5b49bc1&id=34B3A553B5B49BC1!24779&resid=34B3A553B5B49BC1!24779&ithint=video,mp4&embed=1&width=624&height=464&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3YvYy8zNGIzYTU1M2I1YjQ5YmMxL0lRVEJtN1MxVTZXeklJQTB5MkFBQUFBQUFYdkljVEJxU2l5R2NhNUd6dzdSN1hVP3dpZHRoPTYyNCZoZWlnaHQ9NDY0"
+                    },
+                    {
+                      title: "Épisode 3",
+                      link: "https://onedrive.live.com/embed?cid=34b3a553b5b49bc1&id=34B3A553B5B49BC1!24781&resid=34B3A553B5B49BC1!24781&ithint=video,mp4&embed=1&width=640&height=480&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3YvYy8zNGIzYTU1M2I1YjQ5YmMxL0lRVEJtN1MxVTZXeklJQTB6V0FBQUFBQUFlRElKV3o3bzdlYlNIOFMwaWJLeDZrP3dpZHRoPTY0MCZoZWlnaHQ9NDgw"
+                    },
+                    {
+                      title: "Épisode 4",
+                      link: "https://onedrive.live.com/embed?cid=34b3a553b5b49bc1&id=34B3A553B5B49BC1!24782&resid=34B3A553B5B49BC1!24782&ithint=video,mp4&embed=1&width=560&height=416&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3YvYy8zNGIzYTU1M2I1YjQ5YmMxL0lRVEJtN1MxVTZXeklJQTB6bUFBQUFBQUFaRmdyYW93Z0kzNWYxQnNaWG5FSGpzP3dpZHRoPTU2MCZoZWlnaHQ9NDE2"
+                    },
+                    {
+                      title: "Épisode 5",
+                      link: "https://onedrive.live.com/embed?cid=34b3a553b5b49bc1&id=34B3A553B5B49BC1!24783&resid=34B3A553B5B49BC1!24783&ithint=video,mp4&embed=1&width=608&height=464&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3YvYy8zNGIzYTU1M2I1YjQ5YmMxL0lRVEJtN1MxVTZXeklJQTB6MkFBQUFBQUFYSUVaVHlkd3VTTk5uQTFrQjUyMnM0P3dpZHRoPTYwOCZoZWlnaHQ9NDY0"
+                    },
+                    {
+                      title: "Épisode 6",
+                      link: "https://onedrive.live.com/embed?cid=34b3a553b5b49bc1&id=34B3A553B5B49BC1!24784&resid=34B3A553B5B49BC1!24784&ithint=video,mp4&embed=1&width=576&height=432&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3YvYy8zNGIzYTU1M2I1YjQ5YmMxL0lRVEJtN1MxVTZXeklJQTAwR0FBQUFBQUFST2h1NlhKdmQ2eVhWZ0hfVUZMT0lRP3dpZHRoPTU3NiZoZWlnaHQ9NDMy"
+                    },
+                    {
+                      title: "Épisode 7",
+                      link: "https://onedrive.live.com/embed?cid=34b3a553b5b49bc1&id=34B3A553B5B49BC1!24785&resid=34B3A553B5B49BC1!24785&ithint=video,mp4&embed=1&width=576&height=432&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3YvYy8zNGIzYTU1M2I1YjQ5YmMxL0lRVEJtN1MxVTZXeklJQTAwV0FBQUFBQUFXUi1hNFpNRmxqZUxkVTBCd0YzZHpNP3dpZHRoPTU3NiZoZWlnaHQ9NDMy"
+                    },
+                    {
+                      title: "Épisode 8",
+                      link: "https://onedrive.live.com/embed?cid=34b3a553b5b49bc1&id=34B3A553B5B49BC1!24787&resid=34B3A553B5B49BC1!24787&ithint=video,mp4&embed=1&width=560&height=416&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3YvYy8zNGIzYTU1M2I1YjQ5YmMxL0lRVEJtN1MxVTZXeklJQTAwMkFBQUFBQUFRYmI3OVFKM2llMHdyV0QxZmVvN0xVP3dpZHRoPTU2MCZoZWlnaHQ9NDE2"
+                    },
+                    {
+                      title: "Épisode 9",
+                      link: "https://onedrive.live.com/embed?cid=34b3a553b5b49bc1&id=34B3A553B5B49BC1!24786&resid=34B3A553B5B49BC1!24786&ithint=video,mp4&embed=1&width=608&height=464&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3YvYy8zNGIzYTU1M2I1YjQ5YmMxL0lRVEJtN1MxVTZXeklJQTAwbUFBQUFBQUFZQ0ZMMUFPVGxOQ0h5MkoxRXNNOHlzP3dpZHRoPTYwOCZoZWlnaHQ9NDY0"
+                    },
+                    {
+                      title: "Épisode 10",
+                      link: "https://onedrive.live.com/embed?cid=34b3a553b5b49bc1&id=34B3A553B5B49BC1!24788&resid=34B3A553B5B49BC1!24788&ithint=video,mp4&embed=1&width=592&height=448&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3YvYy8zNGIzYTU1M2I1YjQ5YmMxL0lRVEJtN1MxVTZXeklJQTAxR0FBQUFBQUFUNUNTRl9KNEtJTzYzSzBueDNCa01NP3dpZHRoPTU5MiZoZWlnaHQ9NDQ4"
+                    },
+                    {
+                      title: "Épisode 11",
+                      link: "https://onedrive.live.com/embed?cid=34b3a553b5b49bc1&id=34B3A553B5B49BC1!24789&resid=34B3A553B5B49BC1!24789&ithint=video,mp4&embed=1&width=528&height=400&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3YvYy8zNGIzYTU1M2I1YjQ5YmMxL0lRVEJtN1MxVTZXeklJQTAxV0FBQUFBQUFlTk5CQUZpQkFZZ1B2SEJhaFJ6aHh3P3dpZHRoPTUyOCZoZWlnaHQ9NDAw"
+                    },
+                    {
+                      title: "Épisode 12",
+                      link: "https://onedrive.live.com/embed?cid=34b3a553b5b49bc1&id=34B3A553B5B49BC1!24790&resid=34B3A553B5B49BC1!24790&ithint=video,mp4&embed=1&width=592&height=448&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3YvYy8zNGIzYTU1M2I1YjQ5YmMxL0lRVEJtN1MxVTZXeklJQTAxbUFBQUFBQUFUMUhBd3AwNmtiY3p6WDV2NDNJMnhRP3dpZHRoPTU5MiZoZWlnaHQ9NDQ4"
+                    },
+                    {
+                      title: "Épisode 13",
+                      link: "https://onedrive.live.com/embed?cid=34b3a553b5b49bc1&id=34B3A553B5B49BC1!24792&resid=34B3A553B5B49BC1!24792&ithint=video,mp4&embed=1&width=640&height=480&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3YvYy8zNGIzYTU1M2I1YjQ5YmMxL0lRVEJtN1MxVTZXeklJQTAyR0FBQUFBQUFhcmVYaEp6R1J1WGlvdWVfcHZqSFFBP3dpZHRoPTY0MCZoZWlnaHQ9NDgw"
+                    } // Ferme le 13e épisode
+                  ], // Ferme Saison 1
+                }, // Prêt pour la prochaine saison
+                {
+                  title: "Saison 2",
+                  episodes: [
+                    {
+                      title: "Épisode 1",
+                      link: "https://onedrive.live.com/embed?cid=34b3a553b5b49bc1&id=34B3A553B5B49BC1!25058&resid=34B3A553B5B49BC1!25058&ithint=video,mp4&embed=1&width=1280&height=720&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3YvYy8zNGIzYTU1M2I1YjQ5YmMxL0lRVEJtN1MxVTZXeklJQTA0bUVBQUFBQUFmT1RnRHBHSk15a0tOaHhBQmJRVnZvP3dpZHRoPTEyODAmaGVpZ2h0PTcyMA"
+                    },
+                    {
+                      title: "Épisode 2",
+                      link: "https://onedrive.live.com/embed?cid=34b3a553b5b49bc1&id=34B3A553B5B49BC1!25056&resid=34B3A553B5B49BC1!25056&ithint=video,mp4&embed=1&width=1280&height=720&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3YvYy8zNGIzYTU1M2I1YjQ5YmMxL0lRVEJtN1MxVTZXeklJQTA0R0VBQUFBQUFhNWtER0lwa2k2ZHNKUHp0LU5yYUVzP3dpZHRoPTEyODAmaGVpZ2h0PTcyMA"
+                    },
+                    {
+                      title: "Épisode 3",
+                      link: "https://onedrive.live.com/embed?cid=34b3a553b5b49bc1&id=34B3A553B5B49BC1!25061&resid=34B3A553B5B49BC1!25061&ithint=video,mp4&embed=1&width=1280&height=720&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3YvYy8zNGIzYTU1M2I1YjQ5YmMxL0lRVEJtN1MxVTZXeklJQTA1V0VBQUFBQUFZb1NGaTlRU0h3YmU0bkh6c2c1T2M0P3dpZHRoPTEyODAmaGVpZ2h0PTcyMA"
+                    },
+                    {
+                      title: "Épisode 4",
+                      link: "https://onedrive.live.com/embed?cid=34b3a553b5b49bc1&id=34B3A553B5B49BC1!25060&resid=34B3A553B5B49BC1!25060&ithint=video,mp4&embed=1&width=1280&height=720&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3YvYy8zNGIzYTU1M2I1YjQ5YmMxL0lRVEJtN1MxVTZXeklJQTA1R0VBQUFBQUFmaUE2T0t1QTlpbGVQazY4QjBSalcwP3dpZHRoPTEyODAmaGVpZ2h0PTcyMA"
+                    },
+                    {
+                      title: "Épisode 5",
+                      link: "https://onedrive.live.com/embed?cid=34b3a553b5b49bc1&id=34B3A553B5B49BC1!25059&resid=34B3A553B5B49BC1!25059&ithint=video,mp4&embed=1&width=1280&height=720&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3YvYy8zNGIzYTU1M2I1YjQ5YmMxL0lRVEJtN1MxVTZXeklJQTA0MkVBQUFBQUFmOUtYSlp5SW5LZkhWX09vOVN3QTUwP3dpZHRoPTEyODAmaGVpZ2h0PTcyMA"
+                    },
+                    {
+                      title: "Épisode 6",
+                      link: "https://onedrive.live.com/embed?cid=34b3a553b5b49bc1&id=34B3A553B5B49BC1!25063&resid=34B3A553B5B49BC1!25063&ithint=video,mp4&embed=1&width=1280&height=720&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3YvYy8zNGIzYTU1M2I1YjQ5YmMxL0lRVEJtN1MxVTZXeklJQTA1MkVBQUFBQUFRc181dzVDUWNHMGw4TGZJQURCXzlvP3dpZHRoPTEyODAmaGVpZ2h0PTcyMA"
+                    },
+                    {
+                      title: "Épisode 7",
+                      link: "https://onedrive.live.com/embed?cid=34b3a553b5b49bc1&id=34B3A553B5B49BC1!25062&resid=34B3A553B5B49BC1!25062&ithint=video,mp4&embed=1&width=1280&height=720&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3YvYy8zNGIzYTU1M2I1YjQ5YmMxL0lRVEJtN1MxVTZXeklJQTA1bUVBQUFBQUFZS1YtYl91ZVR2cWFSUWdxZWROdWhVP3dpZHRoPTEyODAmaGVpZ2h0PTcyMA"
+                    },
+                    {
+                      title: "Épisode 8",
+                      link: "https://onedrive.live.com/embed?cid=34b3a553b5b49bc1&id=34B3A553B5B49BC1!25064&resid=34B3A553B5B49BC1!25064&ithint=video,mp4&embed=1&width=1280&height=720&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3YvYy8zNGIzYTU1M2I1YjQ5YmMxL0lRVEJtN1MxVTZXeklJQTA2R0VBQUFBQUFjMy1uWlRoaTVxaEREZnZZQzF0V1NNP3dpZHRoPTEyODAmaGVpZ2h0PTcyMA"
+                    },
+                    {
+                      title: "Épisode 9",
+                      link: "https://onedrive.live.com/embed?cid=34b3a553b5b49bc1&id=34B3A553B5B49BC1!25066&resid=34B3A553B5B49BC1!25066&ithint=video,mp4&embed=1&width=1280&height=720&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3YvYy8zNGIzYTU1M2I1YjQ5YmMxL0lRVEJtN1MxVTZXeklJQTA2bUVBQUFBQUFYTk1fMVFPZVh3cHlOQ3pMRDl0N2dvP3dpZHRoPTEyODAmaGVpZ2h0PTcyMA"
+                    },
+                    {
+                      title: "Épisode 10",
+                      link: "https://onedrive.live.com/embed?cid=34b3a553b5b49bc1&id=34B3A553B5B49BC1!25065&resid=34B3A553B5B49BC1!25065&ithint=video,mp4&embed=1&width=1280&height=720&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3YvYy8zNGIzYTU1M2I1YjQ5YmMxL0lRVEJtN1MxVTZXeklJQTA2V0VBQUFBQUFSRkd1RkkyMExnOTN1akJIald3UmZ3P3dpZHRoPTEyODAmaGVpZ2h0PTcyMA"
+                    },
+                    {
+                      title: "Épisode 11",
+                      link: "https://onedrive.live.com/embed?cid=34b3a553b5b49bc1&id=34B3A553B5B49BC1!25067&resid=34B3A553B5B49BC1!25067&ithint=video,mp4&embed=1&width=1280&height=720&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3YvYy8zNGIzYTU1M2I1YjQ5YmMxL0lRVEJtN1MxVTZXeklJQTA2MkVBQUFBQUFSZVJOeTlUUHp1MUhzeFdkVHNrNEkwP3dpZHRoPTEyODAmaGVpZ2h0PTcyMA"
+                    },
+                    {
+                      title: "Épisode 12",
+                      link: "https://onedrive.live.com/embed?cid=34b3a553b5b49bc1&id=34B3A553B5B49BC1!25069&resid=34B3A553B5B49BC1!25069&ithint=video,mp4&embed=1&width=1280&height=720&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3YvYy8zNGIzYTU1M2I1YjQ5YmMxL0lRVEJtN1MxVTZXeklJQTA3V0VBQUFBQUFjTUt6Y2RTWFJ2TjJCMF95X0l1S1YwP3dpZHRoPTEyODAmaGVpZ2h0PTcyMA"
+                    },
+                    {
+                      title: "Épisode 13",
+                      link: "https://onedrive.live.com/embed?cid=34b3a553b5b49bc1&id=34B3A553B5B49BC1!25068&resid=34B3A553B5B49BC1!25068&ithint=video,mp4&embed=1&width=1280&height=720&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3YvYy8zNGIzYTU1M2I1YjQ5YmMxL0lRVEJtN1MxVTZXeklJQTA3R0VBQUFBQUFVVFdyR2w2bmlFUUJ6Tm1EeHlWcDQwP3dpZHRoPTEyODAmaGVpZ2h0PTcyMA"
+                    },
+                    {
+                      title: "Épisode 14",
+                      link: "https://onedrive.live.com/embed?cid=34b3a553b5b49bc1&id=34B3A553B5B49BC1!25070&resid=34B3A553B5B49BC1!25070&ithint=video,mp4&embed=1&width=1280&height=720&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3YvYy8zNGIzYTU1M2I1YjQ5YmMxL0lRVEJtN1MxVTZXeklJQTA3bUVBQUFBQUFkR01nVG5DM1hFaTBJMUVDNW9jVmFJP3dpZHRoPTEyODAmaGVpZ2h0PTcyMA"
+                    },
+                    {
+                      title: "Épisode 15",
+                      link: "https://onedrive.live.com/embed?cid=34b3a553b5b49bc1&id=34B3A553B5B49BC1!25071&resid=34B3A553B5B49BC1!25071&ithint=video,mp4&embed=1&width=1280&height=720&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3YvYy8zNGIzYTU1M2I1YjQ5YmMxL0lRVEJtN1MxVTZXeklJQTA3MkVBQUFBQUFUQUFnUHlVUVFGLUhLZnNwLXRJM2M4P3dpZHRoPTEyODAmaGVpZ2h0PTcyMA"
+                    },
+                    {
+                      title: "Épisode 16",
+                      link: "https://onedrive.live.com/embed?cid=34b3a553b5b49bc1&id=34B3A553B5B49BC1!25072&resid=34B3A553B5B49BC1!25072&ithint=video,mp4&embed=1&width=1280&height=720&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3YvYy8zNGIzYTU1M2I1YjQ5YmMxL0lRVEJtN1MxVTZXeklJQTA4R0VBQUFBQUFZSEFtS2hUX2REbWZqSkpYR2JhSDVnP3dpZHRoPTEyODAmaGVpZ2h0PTcyMA"
+                    },
+                    {
+                      title: "Épisode 17",
+                      link: "https://onedrive.live.com/embed?cid=34b3a553b5b49bc1&id=34B3A553B5B49BC1!25073&resid=34B3A553B5B49BC1!25073&ithint=video,mp4&embed=1&width=1280&height=720&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3YvYy8zNGIzYTU1M2I1YjQ5YmMxL0lRVEJtN1MxVTZXeklJQTA4V0VBQUFBQUFiQ1dMTUlET192SV83S3ZJTS14dE1vP3dpZHRoPTEyODAmaGVpZ2h0PTcyMA"
+                    },
+                    {
+                      title: "Épisode 18",
+                      link: "https://onedrive.live.com/embed?cid=34b3a553b5b49bc1&id=34B3A553B5B49BC1!25075&resid=34B3A553B5B49BC1!25075&ithint=video,mp4&embed=1&width=1280&height=720&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3YvYy8zNGIzYTU1M2I1YjQ5YmMxL0lRVEJtN1MxVTZXeklJQTA4MkVBQUFBQUFRREpkclRHTjh4YjlwaHoxc0E0aVE4P3dpZHRoPTEyODAmaGVpZ2h0PTcyMA"
+                    },
+                    {
+                      title: "Épisode 19",
+                      link: "https://onedrive.live.com/embed?cid=34b3a553b5b49bc1&id=34B3A553B5B49BC1!25074&resid=34B3A553B5B49BC1!25074&ithint=video,mp4&embed=1&width=1280&height=720&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3YvYy8zNGIzYTU1M2I1YjQ5YmMxL0lRVEJtN1MxVTZXeklJQTA4bUVBQUFBQUFTWXZQSExTLWxtWVRUMXNhVllqellVP3dpZHRoPTEyODAmaGVpZ2h0PTcyMA"
+                    },
+                    {
+                      title: "Épisode 20",
+                      link: "https://onedrive.live.com/embed?cid=34b3a553b5b49bc1&id=34B3A553B5B49BC1!25076&resid=34B3A553B5B49BC1!25076&ithint=video,mp4&embed=1&width=1280&height=720&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3YvYy8zNGIzYTU1M2I1YjQ5YmMxL0lRVEJtN1MxVTZXeklJQTA5R0VBQUFBQUFaeGJJQWFVQ01XYi1qZ1RuY1ZiMjVRP3dpZHRoPTEyODAmaGVpZ2h0PTcyMA"
+                    },
+                    {
+                      title: "Épisode 21",
+                      link: "https://onedrive.live.com/embed?cid=34b3a553b5b49bc1&id=34B3A553B5B49BC1!25077&resid=34B3A553B5B49BC1!25077&ithint=video,mp4&embed=1&width=1280&height=720&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3YvYy8zNGIzYTU1M2I1YjQ5YmMxL0lRVEJtN1MxVTZXeklJQTA5V0VBQUFBQUFZbDJrSE5rcERrX0ktSGpxd2EwS0dVP3dpZHRoPTEyODAmaGVpZ2h0PTcyMA"
+                    },
+                    {
+                      title: "Épisode 22",
+                      link: "https://onedrive.live.com/embed?cid=34b3a553b5b49bc1&id=34B3A553B5B49BC1!25078&resid=34B3A553B5B49BC1!25078&ithint=video,mp4&embed=1&width=1280&height=720&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3YvYy8zNGIzYTU1M2I1YjQ5YmMxL0lRVEJtN1MxVTZXeklJQTA5bUVBQUFBQUFRd2FuUnZhMzZsU1hzZDB3VUlCRjlFP3dpZHRoPTEyODAmaGVpZ2h0PTcyMA"
+                    },
+                    {
+                      title: "Épisode 23",
+                      link: "https://onedrive.live.com/embed?cid=34b3a553b5b49bc1&id=34B3A553B5B49BC1!25057&resid=34B3A553B5B49BC1!25057&ithint=video,mp4&embed=1&width=1280&height=720&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3YvYy8zNGIzYTU1M2I1YjQ5YmMxL0lRVEJtN1MxVTZXeklJQTA0V0VBQUFBQUFhUEZkLXZfc0d6bjd5UHVVTEQ3RHdvP3dpZHRoPTEyODAmaGVpZ2h0PTcyMA"
+                    }
+                  ], // Ferme Saison 2
+                }, // Prêt pour la prochaine saison
+                {
+                  title: "Saison 3",
+                  episodes: [
+                    {
+                      title: "Épisode 1",
+                      link: "https://onedrive.live.com/embed?cid=34b3a553b5b49bc1&id=34B3A553B5B49BC1!24822&resid=34B3A553B5B49BC1!24822&ithint=video,mp4&embed=1&width=512&height=384&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3YvYy8zNGIzYTU1M2I1YjQ5YmMxL0lRVEJtN1MxVTZXeklJQTA5bUFBQUFBQUFWTmZicVBNdV9wb1NLVWdpYUFJWTBBP3dpZHRoPTUxMiZoZWlnaHQ9Mzg0"
+                    },
+                    {
+                      title: "Épisode 2",
+                      link: "https://onedrive.live.com/embed?cid=34b3a553b5b49bc1&id=34B3A553B5B49BC1!24820&resid=34B3A553B5B49BC1!24820&ithint=video,mp4&embed=1&width=640&height=480&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3YvYy8zNGIzYTU1M2I1YjQ5YmMxL0lRVEJtN1MxVTZXeklJQTA5R0FBQUFBQUFmdFctTGFMNVNsdjFYX2EtRDgyYk04P3dpZHRoPTY0MCZoZWlnaHQ9NDgw"
+                    },
+                    {
+                      title: "Épisode 3",
+                      link: "https://onedrive.live.com/embed?cid=34b3a553b5b49bc1&id=34B3A553B5B49BC1!24823&resid=34B3A553B5B49BC1!24823&ithint=video,mp4&embed=1&width=640&height=480&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3YvYy8zNGIzYTU1M2I1YjQ5YmMxL0lRVEJtN1MxVTZXeklJQTA5MkFBQUFBQUFVX09MTFBWOUhlemlxZlBpdE0wV2hFP3dpZHRoPTY0MCZoZWlnaHQ9NDgw"
+                    },
+                    {
+                      title: "Épisode 4",
+                      link: "https://onedrive.live.com/embed?cid=34b3a553b5b49bc1&id=34B3A553B5B49BC1!24824&resid=34B3A553B5B49BC1!24824&ithint=video,mp4&embed=1&width=640&height=480&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3YvYy8zNGIzYTU1M2I1YjQ5YmMxL0lRVEJtN1MxVTZXeklJQTAtR0FBQUFBQUFWLW9aZkFmWk5kaHQ3RDNNdnFZWHBNP3dpZHRoPTY0MCZoZWlnaHQ9NDgw"
+                    },
+                    {
+                      title: "Épisode 5",
+                      link: "https://onedrive.live.com/embed?cid=34b3a553b5b49bc1&id=34B3A553B5B49BC1!24825&resid=34B3A553B5B49BC1!24825&ithint=video,mp4&embed=1&width=512&height=384&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3YvYy8zNGIzYTU1M2I1YjQ5YmMxL0lRVEJtN1MxVTZXeklJQTAtV0FBQUFBQUFXWENsYzJaSTUzcS1idXdrRzRUZkdjP3dpZHRoPTUxMiZoZWlnaHQ9Mzg0"
+                    },
+                    {
+                      title: "Épisode 6",
+                      link: "https://onedrive.live.com/embed?cid=34b3a553b5b49bc1&id=34B3A553B5B49BC1!24826&resid=34B3A553B5B49BC1!24826&ithint=video,mp4&embed=1&width=512&height=384&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3YvYy8zNGIzYTU1M2I1YjQ5YmMxL0lRVEJtN1MxVTZXeklJQTAtbUFBQUFBQUFXaHZUenFaSnJDanItRkUwVm9QcW9JP3dpZHRoPTUxMiZoZWlnaHQ9Mzg0"
+                    },
+                    {
+                      title: "Épisode 7",
+                      link: "https://onedrive.live.com/embed?cid=34b3a553b5b49bc1&id=34B3A553B5B49BC1!24827&resid=34B3A553B5B49BC1!24827&ithint=video,mp4&embed=1&width=640&height=480&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3YvYy8zNGIzYTU1M2I1YjQ5YmMxL0lRVEJtN1MxVTZXeklJQTAtMkFBQUFBQUFVVjVaRV9lNEJqQ190b0FfSVNFdUVZP3dpZHRoPTY0MCZoZWlnaHQ9NDgw"
+                    },
+                    {
+                      title: "Épisode 8",
+                      link: "https://onedrive.live.com/embed?cid=34b3a553b5b49bc1&id=34B3A553B5B49BC1!24828&resid=34B3A553B5B49BC1!24828&ithint=video,mp4&embed=1&width=640&height=480&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3YvYy8zNGIzYTU1M2I1YjQ5YmMxL0lRVEJtN1MxVTZXeklJQTBfR0FBQUFBQUFRbTZQSENfTE9LZ2t1azNFMVlLRFUwP3dpZHRoPTY0MCZoZWlnaHQ9NDgw"
+                    },
+                    {
+                      title: "Épisode 9",
+                      link: "https://onedrive.live.com/embed?cid=34b3a553b5b49bc1&id=34B3A553B5B49BC1!24829&resid=34B3A553B5B49BC1!24829&ithint=video,mp4&embed=1&width=640&height=480&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3YvYy8zNGIzYTU1M2I1YjQ5YmMxL0lRVEJtN1MxVTZXeklJQTBfV0FBQUFBQUFmSWxjemdmSjRLaU8wZFdZSzFxSk9ZP3dpZHRoPTY0MCZoZWlnaHQ9NDgw"
+                    },
+                    {
+                      title: "Épisode 10",
+                      link: "https://onedrive.live.com/embed?cid=34b3a553b5b49bc1&id=34B3A553B5B49BC1!24830&resid=34B3A553B5B49BC1!24830&ithint=video,mp4&embed=1&width=640&height=480&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3YvYy8zNGIzYTU1M2I1YjQ5YmMxL0lRVEJtN1MxVTZXeklJQTBfbUFBQUFBQUFkWDljcU8taHMzcUZkVlNZdGp0STZRP3dpZHRoPTY0MCZoZWlnaHQ9NDgw"
+                    },
+                    {
+                      title: "Épisode 11",
+                      link: "https://onedrive.live.com/embed?cid=34b3a553b5b49bc1&id=34B3A553B5B49BC1!24833&resid=34B3A553B5B49BC1!24833&ithint=video,mp4&embed=1&width=640&height=480&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3YvYy8zNGIzYTU1M2I1YjQ5YmMxL0lRVEJtN1MxVTZXeklJQTBBV0VBQUFBQUFVYlNiR2l6MnUtdkpGU1pfQlRTeHVnP3dpZHRoPTY0MCZoZWlnaHQ9NDgw"
+                    },
+                    {
+                      title: "Épisode 12",
+                      link: "https://onedrive.live.com/embed?cid=34b3a553b5b49bc1&id=34B3A553B5B49BC1!24831&resid=34B3A553B5B49BC1!24831&ithint=video,mp4&embed=1&width=640&height=480&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3YvYy8zNGIzYTU1M2I1YjQ5YmMxL0lRVEJtN1MxVTZXeklJQTBfMkFBQUFBQUFTOF82ejZINThac01hWjN2OEJ4NUpNP3dpZHRoPTY0MCZoZWlnaHQ9NDgw"
+                    },
+                    {
+                      title: "Épisode 13",
+                      link: "https://onedrive.live.com/embed?cid=34b3a553b5b49bc1&id=34B3A553B5B49BC1!24832&resid=34B3A553B5B49BC1!24832&ithint=video,mp4&embed=1&width=640&height=480&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3YvYy8zNGIzYTU1M2I1YjQ5YmMxL0lRVEJtN1MxVTZXeklJQTBBR0VBQUFBQUFYWFd1bFUtTDdRNmV1WnFVenJiZlNjP3dpZHRoPTY0MCZoZWlnaHQ9NDgw"
+                    }
+                  ] // Ferme Saison 3
+                }
+              ], // Ferme la série
+              },
+              {
+                title: "Si la tendance se maintient",
+                subItems: [
+                  {
+                    title: "Épisode 1",
+                    link: "https://onedrive.live.com/embed?cid=34b3a553b5b49bc1&id=34B3A553B5B49BC1!35151&resid=34B3A553B5B49BC1!35151&ithint=video,mp4&embed=1&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3YvYy8zNGIzYTU1M2I1YjQ5YmMxL0lRVEJtN1MxVTZXeklJQTBUNGtBQUFBQUFlTDdYNUU3RFBDRkczVy1QLVJNTXhr"
+                  },
+                  {
+                    title: "Épisode 2",
+                    link: "https://onedrive.live.com/embed?cid=34b3a553b5b49bc1&id=34B3A553B5B49BC1!35153&resid=34B3A553B5B49BC1!35153&ithint=video,mp4&embed=1&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3YvYy8zNGIzYTU1M2I1YjQ5YmMxL0lRVEJtN1MxVTZXeklJQTBVWWtBQUFBQUFZS2doRWFoLVV0ZkUtRVlBcUlRblk0"
+                  },
+                  {
+                    title: "Épisode 3",
+                    link: "https://onedrive.live.com/embed?cid=34b3a553b5b49bc1&id=34B3A553B5B49BC1!35152&resid=34B3A553B5B49BC1!35152&ithint=video,mp4&embed=1&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3YvYy8zNGIzYTU1M2I1YjQ5YmMxL0lRVEJtN1MxVTZXeklJQTBVSWtBQUFBQUFiVjFPN2hJLU5wSFVuQmpKNnA4WEpZ"
+                  },
+                  {
+                    title: "Épisode 4",
+                    link: "https://onedrive.live.com/embed?cid=34b3a553b5b49bc1&id=34B3A553B5B49BC1!35155&resid=34B3A553B5B49BC1!35155&ithint=video,mp4&embed=1&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3YvYy8zNGIzYTU1M2I1YjQ5YmMxL0lRVEJtN1MxVTZXeklJQTBVNGtBQUFBQUFhNm9vaXVIR0VqcDVBZTlRR0lvaVhj"
+                  },
+                  {
+                    title: "Épisode 5",
+                    link: "https://onedrive.live.com/embed?cid=34b3a553b5b49bc1&id=34B3A553B5B49BC1!35154&resid=34B3A553B5B49BC1!35154&ithint=video,mp4&embed=1&migratedtospo=true&redeem=aHR0cHM6Ly8xZHJ2Lm1zL3YvYy8zNGIzYTU1M2I1YjQ5YmMxL0lRVEJtN1MxVTZXeklJQTBVb2tBQUFBQUFSNThfc2U3R0s4Wm9TZUYtbHFuSmU0"
+                  }
+                ], // Ferme subItems Si la tendance se maintient
+              }, // Prêt pour la prochaine série
+              {
+              title: "Vivre à trois",
+              subItems: [
+                {
+                  title: "Saison 1",
+                  link: "https://1drv.ms/f/c/34b3a553b5b49bc1/EsGbtLVTpbMggDTrXwAAAAAB2k_hYhVVNjmoxESRJp2ACQ?e=dc9yYL"
+                },
+                {
+                  title: "Saison 2",
+                  link: "https://1drv.ms/f/c/34b3a553b5b49bc1/EsGbtLVTpbMggDTyXwAAAAABABnKITv9W3QBamOFHO3SXg?e=HclVZk"
+                },
+                {
+                  title: "Saison 3",
+                  link: "https://1drv.ms/f/c/34b3a553b5b49bc1/EsGbtLVTpbMggDQMYAAAAAABDaCi76-dIscuMQtqL6Yz8g?e=ebcv34"
+                },
+                {
+                  title: "Saison 4",
+                  link: "https://1drv.ms/f/c/34b3a553b5b49bc1/EsGbtLVTpbMggDQsYAAAAAABdXZDfkC4MNCuhqNllmOmNA?e=BwWGMc"
+                },
+                {
+                  title: "Saison 5",
+                  link: "https://1drv.ms/f/c/34b3a553b5b49bc1/EsGbtLVTpbMggDRQYAAAAAABhMaZJZicDmX4ot_Dm0QOiw?e=B0Yy4c"
+                },
+                {
+                  title: "Saison 6",
+                  link: "https://1drv.ms/f/c/34b3a553b5b49bc1/EsGbtLVTpbMggDRnYAAAAAABF_ASMyJUqz_DSizqe30_2A?e=cpgSyu"
+                },
+                {
+                  title: "Saison 7",
+                  link: "https://1drv.ms/f/c/34b3a553b5b49bc1/EsGbtLVTpbMggDSDYAAAAAAB481dCM1SL5txldMknAvmig?e=gcWtlk"
+                },
+                {
+                  title: "Saison 8",
+                  link: "https://1drv.ms/f/c/34b3a553b5b49bc1/EsGbtLVTpbMggDSsYAAAAAABQ_-tl4UHOJyS6NSou35YnQ?e=7rZGxC"
+                }
+              ] // Ferme subItems Vivre à trois
+              } // Ferme les séries
+            ]
+        },
+        gallery2: {
+          Apps_Courantes: [
+            { src: "https://i.postimg.cc/tCw6fSZF/Adobe.jpg", link: "https://www.adobe.com/ca_fr/" },
+            { src: "https://i.postimg.cc/9MQn4h67/Audacity.png", link: "https://www.audacityteam.org/" },
+            { src: "https://i.postimg.cc/5yXm15KQ/bitdefender.jpg", link: "https://www.bitdefender.com/fr-fr/" },
+            { src: "https://i.postimg.cc/B63pTGVN/Bit-Warden.png", link: "https://bitwarden.com/" },
+            { src: "https://i.postimg.cc/G90vCWs6/CDBurner-XP.png", link: "https://cdburnerxp.se" },
+            { src: "https://i.postimg.cc/fR0f1L4B/DVD-Flick.jpg", link: "https://www.dvdflick.net/" },
+            { src: "https://i.postimg.cc/pdfYX6Lj/DVDVideo-Soft.jpg", link: "https://www.dvdvideosoft.com/" },
+            { src: "https://i.postimg.cc/658rG3Qt/Izarc.jpg", link: "https://www.izarc.org/" },
+            { src: "https://i.postimg.cc/1RHCKfPF/MakeMKV.jpg", link: "https://www.makemkv.com/" },
+            { src: "https://i.postimg.cc/SK2h3HkW/Power-Toys.jpg", link: "https://learn.microsoft.com/en-us/windows/powertoys/install" },
+            { src: "https://i.postimg.cc/qqnpMHdd/Spotify.jpg", link: "https://www.spotify.com/ca-fr/premium/" },
+            { src: "https://i.postimg.cc/Zntfm8qq/ultraviewer.png", link: "https://www.ultraviewer.net/fr/" },
+            { src: "https://i.postimg.cc/wB2yr8Bw/VLC.png", link: "https://www.videolan.org/vlc/" }
+          ],
+          Apps_Reseau: [
+            { src: "https://i.postimg.cc/rmChXX93/CISSS-Cote-Nord.jpg", link: "http://cissscotenord.intranet.reg09.rtss.qc.ca/" },
+            { src: "https://i.postimg.cc/jj66C6JJ/Planner-Dossiers-En-Cours.png", link: "https://planner.cloud.microsoft/webui/plan/gjeHVYJcgE-4mhqJOit2-WUABZAE/view/board?tid=06e1fe28-5f8b-4075-bf6c-ae24be1a7992" },
+            { src: "https://i.postimg.cc/NMwNzfRR/Booking.png", link: "https://outlook.office.com/book/Gf5e7fcba3d784b9684e8cb3fa3ac3eb5@ssss.gouv.qc.ca/?ae=true&login_hint" },
+            { src: "https://i.postimg.cc/4yfWXLLd/Booking-2.png", link: "https://outlook.office.com/bookings/calendar?action=goto&src=mail-goto" },
+            { src: "https://i.postimg.cc/WzYwT2qW/Logibec-Web.jpg", link: "https://grhpaie09.cisss-cotenord.gouv.qc.ca/" },
+            { src: "https://i.postimg.cc/xj6RKPpv/Octopus-2.png", link: "http://RedirectOctopus" },
+            { src: "https://i.postimg.cc/tCfNc4j7/Octopus-3.jpg", link: "https://app3.octopus-itsm.com/cissscotenord/Web/Login.aspx?Tech=true" },
+            { src: "https://i.postimg.cc/rp2C8Zzk/Gestred.png", link: "http://g75.rtss.msss.rtss.qc.ca/G74Acces.asp" },
+            { src: "https://i.postimg.cc/sXycJHRc/Integration-Sante.png", link: "https://sw07001sddc02.reg09.rtss.qc.ca/sddc-console/signin?logout" },
+            { src: "https://i.postimg.cc/C5xs3Z5n/IRIS.png", link: "https://www.irisreservation.ca/Public/Login.aspx?ReturnUrl=%2f" },
+            { src: "https://i.postimg.cc/Y0PYTbTT/Site-WEB-DRI.png", link: "https://msss365.sharepoint.com/sites/CISSSCN-DRI-SPO" },
+            { src: "https://i.postimg.cc/5tmvfxZB/Technologie-De-l-Information-Dans-Sharepoint.png", link: "https://msss365.sharepoint.com/sites/MSSS-Technologiesdelinformation?xsdata=MDV8MDJ8cmVhbC5tYXJ0aW4uMDljaXNzc0Bzc3NzLmdvdXYucWMuY2F8YmI3MzU2MGJjNmViNDM4ZmEzNzIwOGRjYmQ2Yzc5NmZ8MDZlMWZlMjg1ZjhiNDA3NWJmNmNhZTI0YmUxYTc5OTJ8MHwwfDYzODU5MzUyMTA0ODQ5MjkxNXxVbmtub3dufFRXRnBiR1pzYjNkOGV5SldJam9pTUM0d0xqQXdNREFpTENKUUlqb2lWMmx1TXpJaUxDSkJUaUk2SWsxaGFXd2lMQ0pYVkNJNk1uMD18MHx8fA%3d%3d&sdata=eVd3K00wVzhtWEo3aE5YSDB5VDErYk96VDlsQlQyWkZjeE80eWdHRVhaaz0%3d" },
+            { src: "https://i.postimg.cc/nr30r4g1/DGTI.png", link: "https://espaceclient.ti.msss.rtss.qc.ca/Login.aspx" },
+            { src: "https://i.postimg.cc/Zqmpk9DY/VDG.png", link: "https://cissscotenord.vdg.quebec/admin/login.asp" },
+            { src: "https://i.postimg.cc/7P9BK4hT/Clicsante.png", link: "https://portal3.clicsante.ca/" },
+            { src: "https://i.postimg.cc/3rfXyxW9/Smart-Sheet.png", link: "https://app.smartsheet.com/b/home?lang=fr_CA" },
+            { src: "https://i.postimg.cc/L6qzjF1S/SCT.png", link: "https://tresor.qc/cas/login?service=https://tresor.qc/sigri/f?p=10340:1:11615114516546" },
+            { src: "https://i.postimg.cc/65QMSP4b/ENA.png", link: "https://fcp.rtss.qc.ca/ena-login/index.html" },
+            { src: "https://i.postimg.cc/nVGWN7Rr/Assemblee-Nationale.png", link: "https://www.assnat.qc.ca/fr/index.html" },
+            { src: "https://i.postimg.cc/GmHSBfcT/Canada.png", link: "https://www.canada.ca/fr.html" },
+            { src: "https://i.postimg.cc/nLmR2Q9H/Chambre-Des-Communes-Du-Canada.jpg.jpg", link: "https://www.noscommunes.ca/fr" },
+            { src: "https://i.postimg.cc/7ZdtSN6s/Agrement.jpg", link: "https://msss365.sharepoint.com/sites/CISSSCN-Agrement?ovuser=06e1fe28-5f8b-4075-bf6c-ae24be1a7992%2Creal.martin.09cisss%40ssss.gouv.qc.ca&OR=Teams-HL&CT=1710352625381&clickparams=eyJBcHBOYW1lIjoiVGVhbXMtRGVza3RvcCIsIkFwcFZlcnNpb24iOiI0OS8yNDAyMDIwNTUxNSIsIkhhc0ZlZGVyYXRlZFVzZXIiOmZhbHNlfQ%3D%3D" },
+            { src: "https://i.postimg.cc/wv0hQ62q/Sharepoint.jpg", link: "https://msss365.sharepoint.com/teams/CISSSCN-DRIGestionprojets-TM" }
+          ],
+            No_De_Permis: 
+          [
+            { src: 'https://i.postimg.cc/rstyfjTh/Autochtones.jpg', link: 'https://www.quebec.ca/gouvernement/portrait-quebec/repertoire-municipalites' },
+            { src: 'https://i.postimg.cc/26ySZmKN/Infirmieres.png', link: 'https://www.oiiq.org/#/forms/new/?table=0x800000000000003D&form=0x8000000000000048&command=0x8000000000000827' },
+            { src: 'https://i.postimg.cc/N0p0FLbx/Medecins.png', link: 'https://www.cmq.org/fr/bottin/index.aspx?a=1&lang=fr' },            
+            { src: 'https://i.postimg.cc/bJ5N0M7D/Pharmaciens.png', link: 'https://www.opq.org/trouver-un-pharmacien/' }            
+          ],
+            Microsoft: 
+          [
+            { src: 'https://i.postimg.cc/nc3ZqNqH/ExcelWeb.png', link: 'https://m365.cloud.microsoft/launch/excel?auth=2&origindomain=microsoft365' },
+            { src: 'https://i.postimg.cc/0yrvnZC7/One-Drive-Web.png', link: 'https://onedrive.live.com/?id=root&cid=34B3A553B5B49BC1&qt=mru' },
+            { src: 'https://i.postimg.cc/vTQFVvBg/Outlook.png', link: 'https://outlook.office.com/mail/' },
+            { src: 'https://i.postimg.cc/tgxjQTwT/Power-Point-Web.png', link: 'https://m365.cloud.microsoft/launch/powerpoint?auth=2&origindomain=microsoft365' },
+            { src: 'https://i.postimg.cc/FHq4BcP8/TeamsWeb.png', link: 'https://teams.microsoft.com/v2/' },
+            { src: 'https://i.postimg.cc/k4PdnCPy/VisioWeb.png', link: 'https://m365.cloud.microsoft/launch/visio?auth=2&origindomain=microsoft365' },            
+            { src: 'https://i.postimg.cc/G2Pntfcn/WordWeb.png', link: 'https://m365.cloud.microsoft/launch/word?auth=2&origindomain=microsoft365' },
+          ],
+            Magasins: 
+          [
+            { src: 'https://i.postimg.cc/QdgQ6kxx/amazon.jpg', link: 'https://www.amazon.ca' },
+            { src: 'https://i.postimg.cc/FH4bSxxj/Bureau-En-Gros.png', link: 'https://www.bureauengros.com/' },
+            { src: 'https://i.postimg.cc/hGS9Nzf8/Canac.png', link: 'https://www.canac.ca/fr' },
+            { src: 'https://i.postimg.cc/7b8z9bF2/Canadian-Tire.png', link: 'https://canadiantire.ca/fr' },
+            { src: 'https://i.postimg.cc/cJXQWxnp/Costco.png', link: 'https://www.costco.ca/?langId=-25' },
+            { src: 'https://i.postimg.cc/rmHxdfgg/Ebay.png', link: 'https://www.cafr.ebay.ca/' },
+            { src: 'https://i.postimg.cc/rydYf36V/Grill-Spot.png', link: 'https://www.grillspot.ca/' },
+            { src: 'https://i.postimg.cc/X7d1b57t/Princess-Auto.png', link: 'https://www.princessauto.com/fr_CA/store' },
+            { src: 'https://i.postimg.cc/NGWCSDY1/Potvin-Et-Bouchard.png', link: 'https://www.potvinbouchard.ca/ca_fr/potvin-bouchard-jonquiere' },
+            { src: 'https://i.postimg.cc/13SC5z8X/RONA.png', link: 'https://www.rona.ca/fr' },
+            { src: 'https://i.postimg.cc/9fFLZNtj/Tanguay.png', link: 'https://www.tanguay.ca/' },
+            { src: 'https://i.postimg.cc/FHxPfQSZ/Walmart.png', link: 'https://walmart.ca/fr' }
+          ],
+            Personnel: 
+          [
+            { src: 'https://i.postimg.cc/h4xNS62C/Apple.png', link: 'https://www.apple.com/ca/fr/' },
+            { src: 'https://i.postimg.cc/Dzp3XGGB/Banque-C-Tire.png', link: 'https://www.ctfs.com/content/ctfs3/fr/homepage.html' },
+            { src: 'https://i.postimg.cc/3wxHN1kk/beneva.jpg', link: 'https://client.secure.beneva.ca/?realm=/alpha&goto=https%3A%2F%2Ffidc-alpha.secure.beneva.ca%3A443%2Fam%2Foauth2%2Fauthorize%3Fresponse_type%3Dcode%26client_id%3DbnvPortalClient%26state%3DVnUyaWxYNDF1ZE9DSnRTcWhuQlBvQjEzVFFETDVGUmwyT1E0eXRjZWs3STU2%26redirect_uri%3Dhttps%3A%2F%2Fwwws.lacapitale.com%2Fforgerock-landing%26scope%3Dopenid%2520profile%26code_challenge%3DHD_DjfYAWxqiDjMbOnVpM6UhlnmP6j6RwWsSiaHXaSs%26code_challenge_method%3DS256%26nonce%3DVnUyaWxYNDF1ZE9DSnRTcWhuQlBvQjEzVFFETDVGUmwyT1E0eXRjZWs3STU2#/' },
+            { src: 'https://i.postimg.cc/mgwsTJgx/BNC.png', link: 'https://www.bnc.ca/' },
+            { src: 'https://i.postimg.cc/26qRF5Fm/Boite-Vocale.png', link: 'https://voicemail.telus.com/login/index?locale=fr_CA' },
+            { src: 'https://i.postimg.cc/26PpHf2W/Branchez-vous.png', link: 'https://branchez-vous.com/' },
+            { src: 'https://i.postimg.cc/4ytDqFSS/CAA.png', link: 'https://www.caaquebec.com/fr' },
+            { src: 'https://i.postimg.cc/RCHxWNZL/CIBC.png', link: 'https://www.cibc.com/fr/personal-banking.html' },
+            { src: 'https://i.postimg.cc/yYC4csJ4/Compte-Telus.png', link: 'https://www.telus.com/fr/residentiel' },
+            { src: 'https://i.postimg.cc/8Pd8b9WF/Dany-Gauthier.png', link: 'https://danygauthier.com/fr/boeuf--c6' },
+            { src: 'https://i.postimg.cc/FHhMCpgT/Dashlane.png', link: 'https://www.dashlane.com/fr' },
+            { src: 'https://i.postimg.cc/7ZXpFzKw/Eco-Securica.png', link: 'https://www.ecosecurica.com/' },
+            { src: 'https://i.postimg.cc/SKswkKP8/Facebook.png', link: 'https://www.facebook.com/' },
+            { src: 'https://i.postimg.cc/LXgwgb28/Finance-IT.jpg', link: 'https://www.financeit.ca/fr/direct/account/login' },
+            { src: 'https://i.postimg.cc/0jp4cK6g/Francois-Charron.jpg', link: 'https://francoischarron.com/' },
+            { src: 'https://i.postimg.cc/yxq5my8X/FTQ.png', link: 'https://www.fondsftq.com/fr-ca/particuliers/mon-compte-en-ligne/connexion?titreMessageSucces=SuccesLogoutTitre' },
+            { src: 'https://i.postimg.cc/GhCV9KNb/GCSurplus.png', link: 'https://www.gcsurplus.ca/mn-fra.cfm?snc=wfsav&vndsld=0&fbclid=IwAR0r7kuUO2OgY9tIN54u1gjJdtUV7M09SDXKCHnJzdpRNllX5OC1PkLU5mw' },
+            { src: 'https://i.postimg.cc/0203SmRD/Gilles-Beaulieu-Services-Financiers.png', link: 'https://www.gillesbeaulieu.ca/' },
+            { src: 'https://i.postimg.cc/bwY59JpM/Google.png', link: 'https://www.google.com/' },
+            { src: 'https://i.postimg.cc/mgd5Xsrr/Lee-Valley.png', link: 'https://www.leevalley.com/fr-ca' },
+            { src: 'https://i.postimg.cc/FzQWdFTT/MDF-XL-Pages.png', link: 'https://www.mdf-xlpages.com/index.php' },
+            { src: 'https://i.postimg.cc/50zK2QSH/msn.png', link: 'https://www.msn.com/fr-ca?' },
+            { src: 'https://i.postimg.cc/ZqCDXM9x/Ninite.png', link: 'https://ninite.com/' },
+            { src: 'https://i.postimg.cc/Bvkw3BH9/Paypal.png', link: 'https://www.paypal.com/fr/webapps/mpp/home' },
+            { src: 'https://i.postimg.cc/mkNdQxqB/Postes-Canada.jpg', link: 'https://www.canadapost-postescanada.ca/track-reperage/fr#/accueil' },
+            { src: 'https://i.postimg.cc/TYVc3Z6n/Postimage.png', link: 'https://postimages.org/'},
+            { src: 'https://i.postimg.cc/pXRcPThT/Purolator.png', link: 'https://www.purolator.com/fr' },
+            { src: 'https://i.postimg.cc/rySY6Wp3/RDPM.png', link: 'https://www.rdprm.gouv.qc.ca/Consultation/accueil' },
+            { src: 'https://i.postimg.cc/GhK7tCGj/Registre-Des-Ventes.png', link: 'https://www.registredesventes.justice.gouv.qc.ca/?fbclid=IwAR0wodjqRr7BvgTnM86Gi-Bel6mMXD5mQb_zkzJcT1kcF6TXjwLOcjOwtQ0' },
+            { src: 'https://i.postimg.cc/P5q68RMn/SAAQ.png', link: 'https://saaq.gouv.qc.ca/saaq/promotion-services/saaqclic' },
+            { src: 'https://i.postimg.cc/qvZ1cxmh/SSQ.jpg', link: 'https://www.ssq.ca/fr' },
+            { src: 'https://i.postimg.cc/HLcB68KS/Storage-Review.png', link: 'https://www.storagereview.com/fr/' },
+            { src: 'https://i.postimg.cc/wBCFZTY9/Telus-TVPlus.png', link: 'https://telustvplus.com/#/' },
+            { src: 'https://i.postimg.cc/FR0G45h3/TouTV.png', link: 'https://ici.tou.tv/' },
+            { src: 'https://i.postimg.cc/T1G027PS/UMF-Manicouagan.png', link: 'https://umfmanic.portail.medfarsolutions.com/fr/login?redirect=https%3A%2F%2Fumfmanic.portail.medfarsolutions.com%2Ffr%2Fp%2F0%2Fmessages' },
+            { src: 'https://i.postimg.cc/NF44K690/User-Benchmark.png', link: 'https://www.userbenchmark.com/' },
+            { src: 'https://i.postimg.cc/jqQv3bgr/Youtube.png', link: 'https://www.youtube.com/' }
+          ] // Ferme Personnel
+       } // Ferme galler2
+      // ] // Ferme Series
+      };
+    
+</script>
+<!-- —————  SCRIPT D’AFFICHAGE  ————— -->
+  <script>
+  function showSubGallery(category, targetDiv) {
+    /* Reset des conteneurs */
+    const sub1 = document.getElementById('subGallery1');
+    const sub2 = document.getElementById('subGallery2');
+    sub1.className='sub-gallery1'; 
+    sub2.className='sub-gallery2';
+    clearContainer(sub1); 
+    clearContainer(sub2);
+
+    const container = document.getElementById(targetDiv);
+    container.className = targetDiv === 'subGallery1' ? 'sub-gallery1' : 'sub-gallery2';
+    const data = Galleries.gallery1[category] || Galleries.gallery2[category];
+
+    /* Traitement pour les éléments de type Texte (Films / Procédures / Series) */
+    if (Galleries.gallery1[category]) {
+      data.forEach(item => {
+        // S'il y a subItems, on considère que c'est une série.
+        if (item.subItems) {
+          // Crée l'en-tête de la série  
+          const header=document.createElement('div');
+          header.className='series-header';
+          header.innerHTML=`<span class="bullet">•</span><span>${item.title}</span>`;
+          container.appendChild(header);
+          
+          // Crée le conteneur (masqué par défaut) pour les saisons
+          const subList=document.createElement('div');
+          subList.style.display='none';
+          subList.style.marginLeft='20px';
+
+          // Parcourt chaque saison de la série
+          item.subItems.forEach(season => {
+          const row = document.createElement('div');
+          row.className = 'season-item';
+          row.style.display = 'flex';
+          row.style.alignItems = 'center';
+
+          const bullet = document.createElement('span');
+          bullet.className = 'bullet';
+          bullet.textContent = '•';
+          row.appendChild(bullet);
+
+          // Selon que la saison possède des épisodes ou non, on crée un élément interactif
+          let seasonLabel;
+          if (season.episodes && Array.isArray(season.episodes) && season.episodes.length > 0) {
+            // Si des épisodes existent, on utilise un <span> (qui ne redirige pas)
+            seasonLabel = document.createElement('span');
+            seasonLabel.textContent = season.title;
+            seasonLabel.style.color = '#007bff';
+            seasonLabel.style.fontSize = '18px';
+            // On n'attribue pas de href, le clic servira uniquement à afficher la liste des épisodes.
+          } else {
+            // Sinon, on crée un lien cliquable normal
+            seasonLabel = document.createElement('a');
+            seasonLabel.href = season.link || '#';
+            seasonLabel.textContent = season.title;
+            seasonLabel.target = '_blank';
+            seasonLabel.style.color = '#007bff';
+            seasonLabel.style.fontSize = '18px';
+            seasonLabel.style.textDecoration = 'none';
+          }
+          row.appendChild(seasonLabel);
+          subList.appendChild(row);
+
+          // Si la saison possède des épisodes, on construit la liste des épisodes
+          if(season.episodes && Array.isArray(season.episodes) && season.episodes.length > 0) {
+            const epList = document.createElement('div');
+            epList.style.marginLeft = '30px';
+            epList.style.marginTop = '5px';
+            epList.style.display = 'none';
+
+            season.episodes.forEach(ep => {
+            const epRow = document.createElement('div');
+            epRow.className = 'season-item';
+            epRow.style.display = 'flex';
+            epRow.style.alignItems = 'center';
+
+            const epBullet = document.createElement('span');
+            epBullet.classList.add('bullet','bullet-ep');  // conserve bien la classe "bullet" + ajoute "bullet-ep
+            // epBullet.className = 'bullet bullet-episode';
+            // epBullet.className = 'bullet-ep';
+            epBullet.textContent = '›';
+            epRow.appendChild(epBullet);
+
+            const aEp = document.createElement('a');
+            aEp.href = ep.link;
+            aEp.textContent = ep.title;
+            aEp.target = '_blank';
+            aEp.style.color = '#007bff';
+            aEp.style.fontSize = '16px';
+            aEp.style.textDecoration = 'none';
+            epRow.appendChild(aEp);
+
+            epList.appendChild(epRow);
+          });
+          subList.appendChild(epList);
+
+          // Ajoute un événement sur la ligne de la saison pour afficher/masquer les épisodes
+          row.addEventListener('click', function(e) {
+          // Empêche la navigation par défaut du clic
+            e.preventDefault();
+            e.stopPropagation();
+            epList.style.display = epList.style.display === 'none' ? 'block' : 'none';
+         });
+        }
+      });
+      // Le clic sur l'en-tête de la série affiche/masque la liste des saisons
+      header.addEventListener('click', function() {
+        subList.style.display = subList.style.display === 'none'?'block':'none';
+       });  
+          container.appendChild(subList);
+          /* FILMS / PROCÉDURES */
+          } else {
+            // S'il n'y a pas de subItems,
+            // on affiche simplement l'élément (pour Films / Procédures par exemple)  
+            const row = document.createElement('div');
+            row.className = 'line-item';
+            row.style.display = 'flex';
+            row.style.alignItems = 'middle'; // aligne verticalement
+
+            const bulletSpan = document.createElement('span');
+            bulletSpan.className = 'bullet';
+            bulletSpan.textContent = '•';
+            row.appendChild(bulletSpan);
+
+            // Crée un lien cliquable avec le titre
+            const titleLines = item.title.split('<br>');
+            const titleWrapper = document.createElement('div');
+            titleWrapper.style.display = 'flex';
+            titleWrapper.style.flexDirection = 'column';
+            titleWrapper.style.alignItems = 'flex-start';
+
+            titleLines.forEach(line => {
+              const aLine = document.createElement('a');
+              aLine.className = 'title-text';
+              aLine.innerHTML = line;
+              aLine.href = item.embed ?? item.link;
+              aLine.target = '_blank';
+              titleWrapper.appendChild(aLine);
+          }); // Fermeture de la boucle forEach
+          // Attention : On ne doit PAS ajouter une deuxième fois le même élément de puce
+          // car il a déjà été ajouté au début (bulletSpan)
+          row.appendChild(titleWrapper);
+          container.appendChild(row);
+          } // Fermeture du bloc else
+        }); // Fin du data.forEach
+      }
+      /* --- Si la source est une galerie d'images (Apps, Magasins, etc.) --- */
+      else {
+      data.forEach(obj => {
+        const im = document.createElement('img');
+        im.src = obj.src;
+        im.className = 'thumbnail';
+        im.onclick = () => window.open(obj.link, '_blank');
+        container.appendChild(im);
+      });
+    }
+  }
+    /* ——— Images : Apps, Magasins, etc. ——— */
+    /* highlight icône sélectionnée */
+    document.querySelectorAll('.gallery2 .thumbnail').forEach(thumbnail=>{
+      thumbnail.addEventListener('click',function(){
+        document.querySelectorAll('.gallery2 .thumbnail')
+                .forEach(t=>t.classList.remove('selected'));
+        this.classList.add('selected');
+        // Extrais la catégorie à partir de l’attribut onclick
+        const category = this.getAttribute("onclick").match(/'(.*?)'/)[1];
+        // Sauvegarde dans localStorage
+        localStorage.setItem("selectedCategory", category);
+        sessionStorage.setItem("justRefreshed", "true");
+        // Affiche la galerie correspondante
+        const targetDiv = ["Informations", "Films", "Series"].includes(category) ? "subGallery1" : "subGallery2";
+        showSubGallery(category, targetDiv);
+      });
+    });
+  </script>
+
+  <!-- —————  PIED DE PAGE  ————— -->
+  <footer>
+    <p class="footer-left">🔹 Version 1.1</p>
+    <p class="footer-center">© 2025 Réal Martin - Tous droits réservés</p>
+    <p class="footer-right"><span id="dateJour"></span></p>
+  </footer>
+
+  <script>
+    document.getElementById('dateJour').textContent =
+      new Date().toLocaleDateString('fr-FR',
+        {weekday:'long',year:'numeric',month:'long',day:'numeric'});
+      // ✅ Restaure la sélection précédente à l’ouverture
+      document.addEventListener("DOMContentLoaded", () => {
+      const refreshed = sessionStorage.getItem("justRefreshed");
+      const savedCategory = localStorage.getItem("selectedCategory");
+
+      // 👉 Si la page a été juste actualisée (F5)
+      if (refreshed === "true" && savedCategory) {
+        const targetDiv = ["Informations", "Films", "Series"].includes(savedCategory) ? "subGallery1" : "subGallery2";
+        showSubGallery(savedCategory, targetDiv);
+        document.querySelectorAll(".gallery2 .thumbnail").forEach(th => {
+          if (th.getAttribute("onclick").includes(savedCategory)) {
+            th.classList.add("selected");
+          }
+        });
+      } 
+      // 👉 Sinon, on est dans une nouvelle session (réouverture)
+      else {
+        // Nettoyer les anciennes sélections
+        localStorage.removeItem("selectedCategory");
+        sessionStorage.removeItem("justRefreshed");
+      }
+    });
+  </script>
+  </body>
+</html>
