@@ -199,7 +199,7 @@
 </head>
 
 <body>
-    <a class="weatherwidget-io" href="https://forecast7.com/fr/49d22n68d15/baie-comeau/" data-label_1="BAIE-COMEAU" data-label_2="MÉTÉO" data-icons="Climacons Animated" data-theme="weather_one" >BAIE-COMEAU MÉTÉO</a>
+    <!-- <a class="weatherwidget-io" href="https://forecast7.com/fr/49d22n68d15/baie-comeau/" data-label_1="BAIE-COMEAU" data-label_2="MÉTÉO" data-icons="Climacons Animated" data-theme="weather_one" >BAIE-COMEAU MÉTÉO</a>
     <script>
       !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src='https://weatherwidget.io/js/widget.min.js';fjs.parentNode.insertBefore(js,fjs);}}(document,'script','weatherwidget-io-js');
     </script>
@@ -207,7 +207,7 @@
     <a class="weatherwidget-io" href="https://forecast7.com/fr/48d42n71d24/jonquiere/" data-label_1="JONQUIÈRE" data-label_2="MÉTÉO" data-theme="original" >JONQUIÈRE MÉTÉO</a>
     <script>
       !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src='https://weatherwidget.io/js/widget.min.js';fjs.parentNode.insertBefore(js,fjs);}}(document,'script','weatherwidget-io-js');
-    </script>
+    </script> -->
 
     <!-- <script>
         (function(d, s, id) {
@@ -248,7 +248,69 @@
         </div> -->
 
     <!-- <div id="ww_0ae55ec744380" v='1.3' loc='id' a='{"t":"ticker","lang":"fr","sl_lpl":1,"ids":["wl4756"],"font":"Arial","sl_ics":"one_a","sl_sot":"celsius","cl_bkg":"image","cl_font":"#FFFFFF","cl_cloud":"#FFFFFF","cl_persp":"#81D4FA","cl_sun":"#FFC107","cl_moon":"#FFC107","cl_thund":"#FF5722"}'>Plus de prévisions: <a href="https://oneweather.org/calgary/30_days/" id="ww_0ae55ec744380_u" target="_blank">Weather forecast Calgary 30 days</a></div><script async src="https://app3.weatherwidget.org/js/?id=ww_0ae55ec744380"></script> -->
-    
+
+<!-- Sélecteur de ville -->
+<div style="text-align:center; margin: 10px;">
+  <label for="villeSelect" style="font-size:12px;">Choisir une ville :</label>
+  <select id="villeSelect" onchange="changerVille()" style="font-size:16px; padding:5px;">
+    <option value="baie-comeau">Baie-Comeau</option>
+    <option value="jonquiere">Jonquière</option>
+    <option value="beaupre">Beaupré</option>
+  </select>
+</div>
+
+<!-- Zone du widget météo -->
+<div id="widgetMeteo"></div>
+
+<!-- Script météo -->
+<script>
+  function changerVille() {
+    const ville = document.getElementById("villeSelect").value;
+    afficherWidget(ville);
+  }
+
+  function afficherWidget(ville) {
+    const widgetDiv = document.getElementById("widgetMeteo");
+    widgetDiv.innerHTML = ''; // Vide le contenu
+
+    let widgetHTML = '';
+    if (ville === 'baie-comeau') {
+      widgetHTML = `<a class="weatherwidget-io"
+        href="https://forecast7.com/fr/49d22n68d15/baie-comeau/"
+        data-label_1="BAIE-COMEAU"
+        data-label_2="MÉTÉO"
+        data-icons="Climacons Animated"
+        data-theme="weather_one">BAIE-COMEAU MÉTÉO</a>`;
+    } else if (ville === 'jonquiere') {
+      widgetHTML = `<a class="weatherwidget-io"
+        href="https://forecast7.com/fr/48d42n71d24/jonquiere/"
+        data-label_1="JONQUIÈRE"
+        data-label_2="MÉTÉO"
+        data-theme="original">JONQUIÈRE MÉTÉO</a>`;
+    } else if (ville === 'beaupre') {
+      widgetHTML = `<a class="weatherwidget-io"
+        href="https://forecast7.com/fr/47d05n70d89/beaupre/"
+        data-label_1="BEAUPRÉ"
+        data-label_2="MÉTÉO"
+        data-theme="original">BEAUPRÉ MÉTÉO</a>`;
+    }
+
+    widgetDiv.innerHTML = widgetHTML;
+
+    // Recharge le script du widget
+    const script = document.createElement('script');
+    script.src = 'https://weatherwidget.io/js/widget.min.js';
+    script.async = true;
+    document.body.appendChild(script);
+  }
+
+  // Affiche Baie-Comeau par défaut au chargement
+  window.addEventListener('DOMContentLoaded', () => {
+    document.getElementById("villeSelect").value = "baie-comeau";
+    afficherWidget("baie-comeau");
+  });
+</script>
+  
     <!-- Barre de navigation -->
     <div class="gallery2">
     <img src="https://i.postimg.cc/cLBJKH1J/Apps-Courantes.png" class="thumbnail" onclick="showSubGallery('Apps_Courantes','subGallery2')">
