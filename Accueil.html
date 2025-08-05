@@ -257,6 +257,7 @@
     <option value="jonquiere">Jonquière</option>
     <option value="alma">Alma</option>
     <option value="beaupre">Beaupré</option>
+    <option value="quebec">Québec</option>
   </select>
 </div>
 
@@ -303,6 +304,13 @@
         data-label_2="MÉTÉO"
         data-icons="Climacons Animated"
         data-theme="weather_one">BEAUPRÉ MÉTÉO</a>`;
+    } else if (ville === 'quebec') {
+      widgetHTML = `<a class="weatherwidget-io"
+        href="https://forecast7.com/fr/46d81n71d21/quebec-city/"
+        data-label_1="QUÉBEC"
+        data-label_2="MÉTÉO"
+        data-icons="Climacons Animated"
+        data-theme="weather_one">QUÉBEC MÉTÉO</a>`;  
     }
 
     widgetDiv.innerHTML = widgetHTML;
