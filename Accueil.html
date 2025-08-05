@@ -255,6 +255,7 @@
   <select id="villeSelect" onchange="changerVille()" style="font-size:16px; padding:5px;">
     <option value="baie-comeau">Baie-Comeau</option>
     <option value="jonquiere">Jonquière</option>
+    <option value="alma">Alma</option>
     <option value="beaupre">Beaupré</option>
   </select>
 </div>
@@ -288,6 +289,13 @@
         data-label_2="MÉTÉO"
         data-icons="Climacons Animated"
         data-theme="weather_one">JONQUIÈRE MÉTÉO</a>`;
+    } else if (ville === 'jonquiere') {
+      widgetHTML = `<a class="weatherwidget-io"
+        href="https://forecast7.com/fr/48d55n71d65/alma/"
+        data-label_1="ALMA"
+        data-label_2="MÉTÉO"
+        data-icons="Climacons Animated"
+        data-theme="weather_one">ALMA MÉTÉO</a>`;  
     } else if (ville === 'beaupre') {
       widgetHTML = `<a class="weatherwidget-io"
         href="https://forecast7.com/fr/47d05n70d89/beaupre/"
