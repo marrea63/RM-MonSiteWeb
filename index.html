@@ -32,18 +32,21 @@
   left: 0;
   width: 100%;
   z-index: 1000;
-  /* background-color: #f4f4f4; */
+  background-color: #f4f4f4;
   padding: 10px 0;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
     <div style="height: 90px;"></div> <!-- hauteur égale à celle de .gallery2 -->
     
 .sub-gallery1, .sub-gallery2 {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
   max-height: calc(100vh - 100px); /* hauteur de l'écran moins la barre */
   overflow-y: auto;
   padding-top: 10px;
-}
-.sub-gallery1, .sub-gallery2 {
+
   mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
 }
 #widgetMeteo {
