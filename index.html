@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="fr">
 <head>
   <meta charset="UTF-8" />
@@ -26,40 +25,6 @@
       margin: 10px 0;
       justify-content: center;
     }
-    .gallery2 {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  z-index: 1000;
-  background-color: #f4f4f4;
-  padding: 10px 0;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
-    <div style="height: 90px;"></div> <!-- hauteur égale à celle de .gallery2 -->
-    
-.sub-gallery1, .sub-gallery2 {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  justify-content: center;
-  max-height: calc(100vh - 400px); /* hauteur de l'écran moins la barre */
-  overflow-y: auto;
-  padding-top: 10px;
-
-  mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
-}
-#widgetMeteo {
-  position: fixed;
-  top: 100px; /* juste en dessous de la barre de vignettes */
-  right: 20px; /* ou left: 20px si tu préfères à gauche */
-  z-index: 999;
-  background-color: rgba(255, 255, 255, 0.9); /* fond semi-transparent */
-  padding: 10px;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-}
-
     .thumbnail {
       width: 170px;
       height: 50px;
@@ -404,9 +369,7 @@
     <!-- conteneurs -->
     <div id="subGallery1" class="sub-gallery1"></div>
     <div id="subGallery2" class="sub-gallery2"></div>
-
-    <div style="height: 90px;"></div>
-
+  
     <script>
       /* utilitaire */
       function clearContainer(el){ while(el.firstChild) el.removeChild(el.firstChild); }
