@@ -70,7 +70,7 @@
       margin-left: 30px;
       line-height: 1;
       /*margin-right: 10px;      /* espace entre la puce et le titre – ajuste à ton goût */
-    }*/
+    }
     .line-item a, .series-header a, .season-item a {
       /* display: inLine-block; */
       vertical-align: center;
@@ -194,10 +194,16 @@
     .line-item {
       text-align: left;
     }
+    body {
+      padding-top: 250px; /* ajuste selon la hauteur de ton .fixed-top */
+      /* autres styles éventuels */
+    }
     /* Fixe le haut de l'écran */
     .fixed-top {
-      position: sticky;
+      position: fixed;
       top: 0;
+      left: 0;
+      width: 100%;
       background-color: rgba(0, 0, 0, 0.95);
       z-index: 9999;
       padding: 10px;
@@ -1334,7 +1340,7 @@
   </script>
 
   <!-- Liens centrés au bas de la page -->
-    <div style="text-align:center; margin-top:30px; font-size:20px;">
+    <div style="text-align:center; margin-top:30px; font-size:18px;">
     <p><a href="https://marrea63.github.io/RM-MonSiteWeb/index.html" style="color:rgb(255, 0, 0); font-weight:bold;" target="_blank">https://marrea63.github.io/RM-MonSiteWeb/index.html</a></p>
     <p><a href="https://RM-monsiteweb.pages.dev" style="color:rgb(255, 0, 0); font-weight:bold;" target="_blank">https://RM-monsiteweb.pages.dev</a></p>
     <br>
