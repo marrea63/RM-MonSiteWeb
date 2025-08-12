@@ -208,61 +208,9 @@
       z-index: 9999;
       padding: 10px;
     }
-
 </style>
 </head>
-
 <body>
-    <!-- <a class="weatherwidget-io" href="https://forecast7.com/fr/49d22n68d15/baie-comeau/" data-label_1="BAIE-COMEAU" data-label_2="MÉTÉO" data-icons="Climacons Animated" data-theme="weather_one" >BAIE-COMEAU MÉTÉO</a>
-    <script>
-      !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src='https://weatherwidget.io/js/widget.min.js';fjs.parentNode.insertBefore(js,fjs);}}(document,'script','weatherwidget-io-js');
-    </script>
-
-    <a class="weatherwidget-io" href="https://forecast7.com/fr/48d42n71d24/jonquiere/" data-label_1="JONQUIÈRE" data-label_2="MÉTÉO" data-theme="original" >JONQUIÈRE MÉTÉO</a>
-    <script>
-      !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src='https://weatherwidget.io/js/widget.min.js';fjs.parentNode.insertBefore(js,fjs);}}(document,'script','weatherwidget-io-js');
-    </script> -->
-
-    <!-- <script>
-        (function(d, s, id) {
-            if (d.getElementById(id)) {
-                if (window.__TOMORROW__) {
-                    window.__TOMORROW__.renderWidget();
-                }
-                return;
-            }
-            const fjs = d.getElementsByTagName(s)[0];
-            const js = d.createElement(s);
-            js.id = id;
-            js.src = "https://www.tomorrow.io/v1/widget/sdk/sdk.bundle.min.js";
-
-            fjs.parentNode.insertBefore(js, fjs);
-        })(document, 'script', 'tomorrow-sdk');
-        </script>
-
-        <div class="tomorrow"
-           data-location-id="016185,016530,016159,016867,016205,016709"
-           data-language="FR"
-           data-unit-system="METRIC"
-           data-skin="dark"
-           data-widget-type="current6"
-           style="padding-bottom:22px;position:relative;">
-          <a
-            href="https://weather.tomorrow.io/"
-            rel="nofollow noopener noreferrer"
-            target="_blank"
-            style="position: absolute; bottom: 0; transform: translateX(-50%); left: 50%;">
-            <img
-              alt="Powered by Tomorrow.io"
-              src="https://weather-website-client.tomorrow.io/img/powered-by.svg"
-              width="250"
-              height="18"
-            />
-          </a>
-        </div> -->
-
-    <!-- <div id="ww_0ae55ec744380" v='1.3' loc='id' a='{"t":"ticker","lang":"fr","sl_lpl":1,"ids":["wl4756"],"font":"Arial","sl_ics":"one_a","sl_sot":"celsius","cl_bkg":"image","cl_font":"#FFFFFF","cl_cloud":"#FFFFFF","cl_persp":"#81D4FA","cl_sun":"#FFC107","cl_moon":"#FFC107","cl_thund":"#FF5722"}'>Plus de prévisions: <a href="https://oneweather.org/calgary/30_days/" id="ww_0ae55ec744380_u" target="_blank">Weather forecast Calgary 30 days</a></div><script async src="https://app3.weatherwidget.org/js/?id=ww_0ae55ec744380"></script> -->
-
 <!-- Sélecteur de ville -->
 <div class="fixed-top">
 <div style="text-align:center; margin: 10px;">
@@ -275,25 +223,20 @@
     <option value="quebec">Québec</option>
   </select>
 </div>
-
 <div style="text-align:center; margin-top:10px; margin-bottom: 10px; font-size:28px; color:#007bff; font-weight:bold;">
   Bienvenue sur mon site personnel !
 </div>
-
 <!-- Zone du widget météo -->
 <div id="widgetMeteo"></div>
-
 <!-- Script météo -->
 <script>
   function changerVille() {
     const ville = document.getElementById("villeSelect").value;
     afficherWidget(ville);
   }
-
   function afficherWidget(ville) {
     const widgetDiv = document.getElementById("widgetMeteo");
     widgetDiv.innerHTML = ''; // Vide le contenu
-
     let widgetHTML = '';
     if (ville === 'baie-comeau') {
       widgetHTML = `<a class="weatherwidget-io"
@@ -361,23 +304,19 @@
         data-raincolor="#b3eaff" 
         data-snowcolor="#ffffff" >QUÉBEC MÉTÉO</a>`;  
     }
-
     widgetDiv.innerHTML = widgetHTML;
-
     // Recharge le script du widget
     const script = document.createElement('script');
     script.src = 'https://weatherwidget.io/js/widget.min.js';
     script.async = true;
     document.body.appendChild(script);
   }
-
   // Affiche Baie-Comeau par défaut au chargement
   window.addEventListener('DOMContentLoaded', () => {
     document.getElementById("villeSelect").value = "baie-comeau";
     afficherWidget("baie-comeau");
   });
 </script>
-  
     <!-- Barre de navigation -->
     <div class="gallery2">
     <img src="Barre_navigation/Apps-Courantes.png" class="thumbnail" onclick="showSubGallery('Apps_Courantes','subGallery2')">
@@ -391,15 +330,12 @@
     <img src="Barre_navigation/Series.png" class="thumbnail" onclick="showSubGallery('Series','subGallery1')">
     </div>
 </div>
-
     <!-- conteneurs -->
     <div id="subGallery1" class="sub-gallery1"></div>
     <div id="subGallery2" class="sub-gallery2"></div>
-  
     <script>
       /* utilitaire */
       function clearContainer(el){ while(el.firstChild) el.removeChild(el.firstChild); }
-
       /* Objet Galleries */
       const Galleries = {
         gallery1: {
@@ -1133,7 +1069,6 @@
        } // Ferme galler2
       // ] // Ferme Series
       };
-    
 </script>
 <!-- —————  SCRIPT D’AFFICHAGE  ————— -->
   <script>
@@ -1145,11 +1080,9 @@
     sub2.className='sub-gallery2';
     clearContainer(sub1); 
     clearContainer(sub2);
-
     const container = document.getElementById(targetDiv);
     container.className = targetDiv === 'subGallery1' ? 'sub-gallery1' : 'sub-gallery2';
     const data = Galleries.gallery1[category] || Galleries.gallery2[category];
-
     /* Traitement pour les éléments de type Texte (Films / Procédures / Series) */
     if (Galleries.gallery1[category]) {
       data.forEach(item => {
@@ -1160,24 +1093,20 @@
           header.className='series-header';
           header.innerHTML=`<span class="bullet">•</span><span>${item.title}</span>`;
           container.appendChild(header);
-          
           // Crée le conteneur (masqué par défaut) pour les saisons
           const subList=document.createElement('div');
           subList.style.display='none';
           subList.style.marginLeft='20px';
-
           // Parcourt chaque saison de la série
           item.subItems.forEach(season => {
           const row = document.createElement('div');
           row.className = 'season-item';
           row.style.display = 'flex';
           row.style.alignItems = 'center';
-
           const bullet = document.createElement('span');
           bullet.className = 'bullet';
           bullet.textContent = '•';
           row.appendChild(bullet);
-
           // Selon que la saison possède des épisodes ou non, on crée un élément interactif
           let seasonLabel;
           if (season.episodes && Array.isArray(season.episodes) && season.episodes.length > 0) {
@@ -1199,27 +1128,23 @@
           }
           row.appendChild(seasonLabel);
           subList.appendChild(row);
-
           // Si la saison possède des épisodes, on construit la liste des épisodes
           if(season.episodes && Array.isArray(season.episodes) && season.episodes.length > 0) {
             const epList = document.createElement('div');
             epList.style.marginLeft = '30px';
             epList.style.marginTop = '5px';
             epList.style.display = 'none';
-
             season.episodes.forEach(ep => {
             const epRow = document.createElement('div');
             epRow.className = 'season-item';
             epRow.style.display = 'flex';
             epRow.style.alignItems = 'center';
-
             const epBullet = document.createElement('span');
             epBullet.classList.add('bullet','bullet-ep');  // conserve bien la classe "bullet" + ajoute "bullet-ep
             // epBullet.className = 'bullet bullet-episode';
             // epBullet.className = 'bullet-ep';
             epBullet.textContent = '›';
             epRow.appendChild(epBullet);
-
             const aEp = document.createElement('a');
             aEp.href = ep.link;
             aEp.textContent = ep.title;
@@ -1228,11 +1153,9 @@
             aEp.style.fontSize = '16px';
             aEp.style.textDecoration = 'none';
             epRow.appendChild(aEp);
-
             epList.appendChild(epRow);
           });
           subList.appendChild(epList);
-
           // Ajoute un événement sur la ligne de la saison pour afficher/masquer les épisodes
           row.addEventListener('click', function(e) {
           // Empêche la navigation par défaut du clic
@@ -1255,19 +1178,16 @@
             row.className = 'line-item';
             row.style.display = 'flex';
             row.style.alignItems = 'middle'; // aligne verticalement
-
             const bulletSpan = document.createElement('span');
             bulletSpan.className = 'bullet';
             bulletSpan.textContent = '•';
             row.appendChild(bulletSpan);
-
             // Crée un lien cliquable avec le titre
             const titleLines = item.title.split('<br>');
             const titleWrapper = document.createElement('div');
             titleWrapper.style.display = 'flex';
             titleWrapper.style.flexDirection = 'column';
             titleWrapper.style.alignItems = 'flex-start';
-
             titleLines.forEach(line => {
               const aLine = document.createElement('a');
               aLine.className = 'title-text';
@@ -1312,32 +1232,24 @@
       });
     });
   </script>
-
   <!-- —————  PIED DE PAGE  ————— -->
   <footer>
     <p class="footer-left">🔹 Version 1.3</p>
     <p class="footer-center">© 2025 Réal Martin - Tous droits réservés</p>
     <p class="footer-right"><span id="dateJour"></span></p>
   </footer>
-
   <script>
    function capitalizeFirstLetter(str) {
       return str.charAt(0).toUpperCase() + str.slice(1);
     }
-
     const date = new Date();
     const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
     const formattedDate = date.toLocaleDateString('fr-FR', options);
     document.getElementById('dateJour').textContent = capitalizeFirstLetter(formattedDate);
-
-    // document.getElementById('dateJour').textContent =
-      // new Date().toLocaleDateString('fr-FR',
-        // {weekday:'long',year:'numeric',month:'long',day:'numeric'});
       // ✅ Restaure la sélection précédente à l’ouverture
       document.addEventListener("DOMContentLoaded", () => {
       const refreshed = sessionStorage.getItem("justRefreshed");
       const savedCategory = localStorage.getItem("selectedCategory");
-
       // 👉 Si la page a été juste actualisée (F5)
       if (refreshed === "true" && savedCategory) {
         const targetDiv = ["Informations", "Films", "Series"].includes(savedCategory) ? "subGallery1" : "subGallery2";
@@ -1356,7 +1268,6 @@
       }
     });
   </script>
-
   <!-- Liens centrés au bas de la page -->
     <div style="text-align:center; margin-top:30px; font-size:20px;">
     <p><a href="https://marrea63.github.io/RM-MonSiteWeb/index.html" style="color:rgb(255, 0, 0); font-weight:bold;" target="_blank">https://marrea63.github.io/RM-MonSiteWeb/index.html</a></p>
