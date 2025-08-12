@@ -1316,9 +1316,18 @@
   </footer>
 
   <script>
-    document.getElementById('dateJour').textContent =
-      new Date().toLocaleDateString('fr-FR',
-        {weekday:'long',year:'numeric',month:'long',day:'numeric'});
+   function capitalizeFirstLetter(str) {
+      return str.charAt(0).toUpperCase() + str.slice(1);
+    }
+
+    const date = new Date();
+    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    const formattedDate = date.toLocaleDateString('fr-FR', options);
+    document.getElementById('dateJour').textContent = capitalizeFirstLetter(formattedDate);
+
+    // document.getElementById('dateJour').textContent =
+      // new Date().toLocaleDateString('fr-FR',
+        // {weekday:'long',year:'numeric',month:'long',day:'numeric'});
       // ✅ Restaure la sélection précédente à l’ouverture
       document.addEventListener("DOMContentLoaded", () => {
       const refreshed = sessionStorage.getItem("justRefreshed");
