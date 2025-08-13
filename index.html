@@ -342,6 +342,11 @@
   window.addEventListener('DOMContentLoaded', () => {
     document.getElementById("villeSelect").value = "baie-comeau";
     afficherWidget("baie-comeau");
+  // Rafraîchit le widget toutes les 30 minutes (1800000 ms)
+  setInterval(() => {
+    const villeActuelle = document.getElementById("villeSelect").value;
+    afficherWidget(villeActuelle);
+  }, 960000);  
   });
 </script>
     <!-- Barre de navigation -->
