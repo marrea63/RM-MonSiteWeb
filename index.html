@@ -211,7 +211,7 @@
 </style>
 </head>
 <body>
-<!-- Sélecteur de ville -->
+    <!-- Sélecteur de ville -->
 <div class="fixed-top">
 <div style="text-align:center; margin: 10px;">
   <label for="villeSelect" style="font-size:20px; color:white;">Choisir une ville :</label>
@@ -222,10 +222,37 @@
     <option value="beaupre">Beaupré</option>
     <option value="quebec">Québec</option>
   </select>
+<div style="position:absolute; top:20px; right:36px;">
+<div id="time"></div>
+</div>
 </div>
 <div style="text-align:center; margin-top:10px; margin-bottom: 10px; font-size:28px; color:#007bff; font-weight:bold;">
   Bienvenue sur mon site personnel !
 </div>
+<!-- CSS -->
+<style>
+  #time {
+    font-size: 36px;
+    font-family: 'Roboto', sans-serif;
+    color: #ffffff;
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+  }
+</style>
+<!-- JavaScript -->
+<script>
+  function startTime() {
+    const today = new Date();
+    let h = today.getHours();
+    let m = today.getMinutes();
+    let s = today.getSeconds();
+    h = h < 10 ? "0" + h : h;
+    m = m < 10 ? "0" + m : m;
+    s = s < 10 ? "0" + s : s;
+    document.getElementById('time').innerHTML = "" + h + ":" + m + ":" + s;
+    setTimeout(startTime, 500);
+  }
+  startTime();
+</script>
 <!-- Zone du widget météo -->
 <div id="widgetMeteo"></div>
 <!-- Script météo -->
@@ -1234,19 +1261,18 @@
   </script>
   <!-- —————  PIED DE PAGE  ————— -->
   <footer>
-    <p class="footer-left">🔹 Version 1.3</p>
+    <p class="footer-left">🔹 Version 1.4</p>
     <p class="footer-center">© 2025 Réal Martin - Tous droits réservés</p>
     <p class="footer-right"><span id="dateJour"></span></p>
   </footer>
   <script>
-   function capitalizeFirstLetter(str) {
+    function capitalizeFirstLetter(str) {
       return str.charAt(0).toUpperCase() + str.slice(1);
     }
     const date = new Date();
     const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
     const formattedDate = date.toLocaleDateString('fr-FR', options);
     document.getElementById('dateJour').textContent = capitalizeFirstLetter(formattedDate);
-      // ✅ Restaure la sélection précédente à l’ouverture
       document.addEventListener("DOMContentLoaded", () => {
       const refreshed = sessionStorage.getItem("justRefreshed");
       const savedCategory = localStorage.getItem("selectedCategory");
