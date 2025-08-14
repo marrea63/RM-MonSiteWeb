@@ -12,7 +12,6 @@
       width: 100%;
       font-family: Arial,sans-serif;
       background: #f4f4f4 url("./Fond_ecran/Galaxie.png") top center no-repeat fixed;
-      /* background: #f4f4f4 url("https://github.com/marrea63/RM-MonSiteWeb/blob/main/Fond%20d'%C3%A9cran/Galaxie.png") top center no-repeat fixed; */ /* Fonctionne aussi */
       background-size: 100% auto;
       margin: 0px;
       padding: 0px;
@@ -279,7 +278,7 @@
         data-highcolor="#ff6b6b" 
         data-cloudfill="#ceeefc" 
         data-raincolor="#b3eaff" 
-        data-snowcolor="#ffffff" >BAIE-COMEAU MÉTÉO</a>`;
+        data-snowcolor="#ffffff" >BAIE-COMEAU MÉTÉO</a>`
     } else if (ville === 'jonquiere') {
       widgetHTML = `<a class="weatherwidget-io"
         href="https://forecast7.com/fr/48d42n71d24/jonquiere/"
@@ -292,7 +291,7 @@
         data-highcolor="#ff6b6b" 
         data-cloudfill="#ceeefc" 
         data-raincolor="#b3eaff" 
-        data-snowcolor="#ffffff" >JONQUIÈRE MÉTÉO</a>`;
+        data-snowcolor="#ffffff" >JONQUIÈRE MÉTÉO</a>`
     } else if (ville === 'alma') {
       widgetHTML = `<a class="weatherwidget-io"
         href="https://forecast7.com/fr/48d55n71d65/alma/"
@@ -305,7 +304,7 @@
         data-highcolor="#ff6b6b" 
         data-cloudfill="#ceeefc" 
         data-raincolor="#b3eaff" 
-        data-snowcolor="#ffffff" >ALMA MÉTÉO</a>`;  
+        data-snowcolor="#ffffff" >ALMA MÉTÉO</a>`
     } else if (ville === 'beaupre') {
       widgetHTML = `<a class="weatherwidget-io"
         href="https://forecast7.com/fr/47d05n70d89/beaupre/"
@@ -318,7 +317,7 @@
         data-highcolor="#ff6b6b" 
         data-cloudfill="#ceeefc" 
         data-raincolor="#b3eaff" 
-        data-snowcolor="#ffffff" >BEAUPRÉ MÉTÉO</a>`;
+        data-snowcolor="#ffffff" >BEAUPRÉ MÉTÉO</a>`
     } else if (ville === 'quebec') {
       widgetHTML = `<a class="weatherwidget-io"
         href="https://forecast7.com/fr/46d81n71d21/quebec-city/"
@@ -334,6 +333,10 @@
         data-snowcolor="#ffffff" >QUÉBEC MÉTÉO</a>`;  
     }
     widgetDiv.innerHTML = widgetHTML;
+    // Réinitialise le widget
+    if (typeof __weatherwidget_init === "function") {
+      __weatherwidget_init();
+    }
     // Recharge le script du widget
     const script = document.createElement('script');
     script.src = 'https://weatherwidget.io/js/widget.min.js';
@@ -344,11 +347,11 @@
   window.addEventListener('DOMContentLoaded', () => {
     document.getElementById("villeSelect").value = "baie-comeau";
     afficherWidget("baie-comeau");
-  // Rafraîchit le widget toutes les 30 minutes (1800000 ms)
+  // Rafraîchit le widget toutes les 10 minutes (600000 ms)
   setInterval(() => {
     const villeActuelle = document.getElementById("villeSelect").value;
     afficherWidget(villeActuelle);
-  }, 120000);  
+  }, 120000);
   });
 </script>
     <!-- Barre de navigation -->
@@ -1023,24 +1026,7 @@
             { src: "Apps_Reseau/Agrement.JPG", link: "https://msss365.sharepoint.com/sites/CISSSCN-Agrement?ovuser=06e1fe28-5f8b-4075-bf6c-ae24be1a7992%2Creal.martin.09cisss%40ssss.gouv.qc.ca&OR=Teams-HL&CT=1710352625381&clickparams=eyJBcHBOYW1lIjoiVGVhbXMtRGVza3RvcCIsIkFwcFZlcnNpb24iOiI0OS8yNDAyMDIwNTUxNSIsIkhhc0ZlZGVyYXRlZFVzZXIiOmZhbHNlfQ%3D%3D" },
             { src: "Apps_Reseau/Sharepoint.JPG", link: "https://msss365.sharepoint.com/teams/CISSSCN-DRIGestionprojets-TM" }
           ],
-            No_De_Permis: 
-          [
-            { src: 'No_de_permis/Autochtones.jpg', link: 'https://www.quebec.ca/gouvernement/portrait-quebec/repertoire-municipalites' },
-            { src: 'No_de_permis/Infirmieres.png', link: 'https://www.oiiq.org/#/forms/new/?table=0x800000000000003D&form=0x8000000000000048&command=0x8000000000000827' },
-            { src: 'No_de_permis/Medecins.png', link: 'https://www.cmq.org/fr/bottin/index.aspx?a=1&lang=fr' },            
-            { src: 'No_de_permis/Pharmaciens.png', link: 'https://www.opq.org/trouver-un-pharmacien/' }            
-          ],
-            Microsoft: 
-          [
-            { src: 'Microsoft/ExcelWeb.png', link: 'https://m365.cloud.microsoft/launch/excel?auth=2&origindomain=microsoft365' },
-            { src: 'Microsoft/OneDriveWeb.png', link: 'https://onedrive.live.com/?id=root&cid=34B3A553B5B49BC1&qt=mru' },
-            { src: 'Microsoft/Outlook.png', link: 'https://outlook.office.com/mail/' },
-            { src: 'Microsoft/PowerPointWeb.png', link: 'https://m365.cloud.microsoft/launch/powerpoint?auth=2&origindomain=microsoft365' },
-            { src: 'Microsoft/TeamsWeb.png', link: 'https://teams.microsoft.com/v2/' },
-            { src: 'Microsoft/VisioWeb.png', link: 'https://m365.cloud.microsoft/launch/visio?auth=2&origindomain=microsoft365' },            
-            { src: 'Microsoft/WordWeb.png', link: 'https://m365.cloud.microsoft/launch/word?auth=2&origindomain=microsoft365' },
-          ],
-            Magasins: 
+           Magasins: 
           [
             { src: 'Magasins/amazon.JPG', link: 'https://www.amazon.ca' },
             { src: 'Magasins/BestBuy.png', link: 'https://www.bestbuy.ca/fr-ca' },
@@ -1057,6 +1043,23 @@
             { src: 'Magasins/Tanguay.png', link: 'https://www.tanguay.ca/' },
             { src: 'Magasins/Walmart.png', link: 'https://walmart.ca/fr' }
           ],
+            Microsoft: 
+          [
+            { src: 'Microsoft/ExcelWeb.png', link: 'https://m365.cloud.microsoft/launch/excel?auth=2&origindomain=microsoft365' },
+            { src: 'Microsoft/OneDriveWeb.png', link: 'https://onedrive.live.com/?id=root&cid=34B3A553B5B49BC1&qt=mru' },
+            { src: 'Microsoft/Outlook.png', link: 'https://outlook.office.com/mail/' },
+            { src: 'Microsoft/PowerPointWeb.png', link: 'https://m365.cloud.microsoft/launch/powerpoint?auth=2&origindomain=microsoft365' },
+            { src: 'Microsoft/TeamsWeb.png', link: 'https://teams.microsoft.com/v2/' },
+            { src: 'Microsoft/VisioWeb.png', link: 'https://m365.cloud.microsoft/launch/visio?auth=2&origindomain=microsoft365' },            
+            { src: 'Microsoft/WordWeb.png', link: 'https://m365.cloud.microsoft/launch/word?auth=2&origindomain=microsoft365' },
+          ],
+            No_De_Permis: 
+          [
+            { src: 'No_de_permis/Autochtones.jpg', link: 'https://www.quebec.ca/gouvernement/portrait-quebec/repertoire-municipalites' },
+            { src: 'No_de_permis/Infirmieres.png', link: 'https://www.oiiq.org/#/forms/new/?table=0x800000000000003D&form=0x8000000000000048&command=0x8000000000000827' },
+            { src: 'No_de_permis/Medecins.png', link: 'https://www.cmq.org/fr/bottin/index.aspx?a=1&lang=fr' },            
+            { src: 'No_de_permis/Pharmaciens.png', link: 'https://www.opq.org/trouver-un-pharmacien/' }            
+          ], 
             Personnel: 
           [
             { src: 'Personnel/Apple.png', link: 'https://www.apple.com/ca/fr/' },
