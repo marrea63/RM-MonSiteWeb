@@ -223,14 +223,21 @@
     <option value="beaupre">Beaupré</option>
     <option value="quebec">Québec</option>
   </select>
+
+<div style="position:absolute; top:30px; left:48px;">
+  <div id="countdown"></div>
+</div>
+
 <div style="position:absolute; top:30px; right:48px;">
 <div id="time"></div>
 </div>
+
 </div>
 <div style="text-align:center; margin-top:10px; margin-bottom: 10px; font-size:28px; color:#007bff; font-weight:bold;">
   Bienvenue sur mon site personnel !
 </div>
 <!-- CSS -->
+
 <style>
   #time {
     font-size: 36px;
@@ -238,6 +245,13 @@
     color: #ffffff;
     text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
   }
+  #countdown {
+    font-size: 36px;
+    font-family: 'Roboto', sans-serif;
+    color: #ffffff;
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+  }
+</style>
 </style>
 <!-- JavaScript -->
 <script>
@@ -253,6 +267,34 @@
     setTimeout(startTime, 500);
   }
   startTime();
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+    function pad(n) {
+      return n.toString().padStart(2, '0');
+    }
+
+  function updateCountdown() {
+    const retirementDate = new Date("2025-12-23T00:00:00");
+    const now = new Date();
+    const diff = retirementDate - now;
+
+    if (diff <= 0) {
+      document.getElementById("countdown").innerHTML = "🎉 Retraité !";
+      return;
+    }
+
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+    const minutes = Math.floor((diff / (1000 * 60)) % 60);
+    const seconds = Math.floor((diff / 1000) % 60);
+
+    document.getElementById("countdown").innerHTML =
+      `${days} Jours ${pad(hours)}: ${pad(minutes)}: ${pad(seconds)} avant la retraite`;
+  }
+  setInterval(updateCountdown, 1000);
+  updateCountdown();
+});
 </script>
 <!-- Zone du widget météo -->
 <div id="widgetMeteo"></div>
