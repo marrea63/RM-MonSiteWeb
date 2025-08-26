@@ -212,7 +212,7 @@
 </style>
 </head>
 <body>
-<!-- Sélecteur de ville -->
+    <!-- Sélecteur de ville -->
 <div class="fixed-top">
 <div style="text-align:center; margin: 10px;">
   <label for="villeSelect" style="font-size:20px; color:white;">Choisir une ville :</label>
@@ -223,9 +223,6 @@
     <option value="beaupre">Beaupré</option>
     <option value="quebec">Québec</option>
   </select>
-<div style="position:absolute; top:30px; left:48px;">
-  <div id="countdown"></div>
-</div>
 <div style="position:absolute; top:30px; right:48px;">
 <div id="time"></div>
 </div>
@@ -241,13 +238,6 @@
     color: #ffffff;
     text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
   }
-  #countdown {
-    font-size: 36px;
-    font-family: 'Roboto', sans-serif;
-    color: #ffffff;
-    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
-  }
-</style>
 </style>
 <!-- JavaScript -->
 <script>
@@ -264,30 +254,7 @@
   }
   startTime();
 </script>
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-    function pad(n) {
-      return n.toString().padStart(2, '0');
-    }
-  function updateCountdown() {
-    const retirementDate = new Date("2025-12-23T16:30:00");
-    const now = new Date();
-    const diff = retirementDate - now;
-    if (diff <= 0) {
-      document.getElementById("countdown").innerHTML = "🎉 Retraité !";
-      return;
-    }
-    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-    const minutes = Math.floor((diff / (1000 * 60)) % 60);
-    const seconds = Math.floor((diff / 1000) % 60);
-    document.getElementById("countdown").innerHTML =
-      `${days} Jours ${pad(hours)}: ${pad(minutes)}: ${pad(seconds)} avant la retraite`;
-  }
-  setInterval(updateCountdown, 1000);
-  updateCountdown();
-});
-</script>
+
 <!-- Zone du widget météo -->
 <div id="widgetMeteo"></div>
 <!-- Script météo -->
@@ -739,6 +706,56 @@
                 } // Ferme à l'épisode 6
               ], // Ferme subItems la série
             }, // Prêt pour la prochaine série
+            {
+              title: "Empathie",
+              subItems: [
+                {
+                  title: "Saison 1",
+                  episodes: [
+                    {
+                      title: "Épisode 1",
+                      link: "https://onedrive.live.com/?sortField=LinkFilename&isAscending=true&viewid=e094dac0%2D776b%2D420a%2Db205%2Dde2557dd4ac5&id=%2Fpersonal%2F34b3a553b5b49bc1%2FDocuments%2FFilms%20et%20s%C3%A9ries%2FS%C3%A9ries%2FEmpathie%2FEmpathie%2ES01E01%2EFRENCH%2E1080p%2EWEB%2EH264%2DTFA%2Emkv&parent=%2Fpersonal%2F34b3a553b5b49bc1%2FDocuments%2FFilms%20et%20s%C3%A9ries%2FS%C3%A9ries%2FEmpathie"
+                    },
+                    {
+                      title: "Épisode 2",
+                      link: "https://onedrive.live.com/?sortField=LinkFilename&isAscending=true&viewid=e094dac0%2D776b%2D420a%2Db205%2Dde2557dd4ac5&id=%2Fpersonal%2F34b3a553b5b49bc1%2FDocuments%2FFilms%20et%20s%C3%A9ries%2FS%C3%A9ries%2FEmpathie%2FEmpathie%2ES01E02%2EFRENCH%2E1080p%2EWEB%2EH264%2DTFA%2Emkv&parent=%2Fpersonal%2F34b3a553b5b49bc1%2FDocuments%2FFilms%20et%20s%C3%A9ries%2FS%C3%A9ries%2FEmpathie"
+                    },
+                    {
+                      title: "Épisode 3",
+                      link: "https://onedrive.live.com/?sortField=LinkFilename&isAscending=true&viewid=e094dac0%2D776b%2D420a%2Db205%2Dde2557dd4ac5&id=%2Fpersonal%2F34b3a553b5b49bc1%2FDocuments%2FFilms%20et%20s%C3%A9ries%2FS%C3%A9ries%2FEmpathie%2FEmpathie%2ES01E03%2EFRENCH%2E1080p%2EWEB%2EH264%2DTFA%2Emkv&parent=%2Fpersonal%2F34b3a553b5b49bc1%2FDocuments%2FFilms%20et%20s%C3%A9ries%2FS%C3%A9ries%2FEmpathie"
+                    },
+                    {
+                      title: "Épisode 4",
+                      link: "https://onedrive.live.com/?sortField=LinkFilename&isAscending=true&viewid=e094dac0%2D776b%2D420a%2Db205%2Dde2557dd4ac5&id=%2Fpersonal%2F34b3a553b5b49bc1%2FDocuments%2FFilms%20et%20s%C3%A9ries%2FS%C3%A9ries%2FEmpathie%2FEmpathie%2ES01E04%2EFRENCH%2E1080p%2EWEB%2EH264%2DTFA%2Emkv&parent=%2Fpersonal%2F34b3a553b5b49bc1%2FDocuments%2FFilms%20et%20s%C3%A9ries%2FS%C3%A9ries%2FEmpathie"
+                    },
+                    {
+                      title: "Épisode 5",
+                      link: "https://onedrive.live.com/?sortField=LinkFilename&isAscending=true&viewid=e094dac0%2D776b%2D420a%2Db205%2Dde2557dd4ac5&id=%2Fpersonal%2F34b3a553b5b49bc1%2FDocuments%2FFilms%20et%20s%C3%A9ries%2FS%C3%A9ries%2FEmpathie%2FEmpathie%2ES01E05%2EFRENCH%2E1080p%2EWEB%2EH264%2DTFA%2Emkv&parent=%2Fpersonal%2F34b3a553b5b49bc1%2FDocuments%2FFilms%20et%20s%C3%A9ries%2FS%C3%A9ries%2FEmpathie"
+                    },
+                    {
+                      title: "Épisode 6",
+                      link: "https://onedrive.live.com/?sortField=LinkFilename&isAscending=true&viewid=e094dac0%2D776b%2D420a%2Db205%2Dde2557dd4ac5&id=%2Fpersonal%2F34b3a553b5b49bc1%2FDocuments%2FFilms%20et%20s%C3%A9ries%2FS%C3%A9ries%2FEmpathie%2FEmpathie%2ES01E06%2EFRENCH%2E1080p%2EWEB%2EH264%2DTFA%2Emkv&parent=%2Fpersonal%2F34b3a553b5b49bc1%2FDocuments%2FFilms%20et%20s%C3%A9ries%2FS%C3%A9ries%2FEmpathie"
+                    },
+                    {
+                      title: "Épisode 7",
+                      link: "https://onedrive.live.com/?sortField=LinkFilename&isAscending=true&viewid=e094dac0%2D776b%2D420a%2Db205%2Dde2557dd4ac5&id=%2Fpersonal%2F34b3a553b5b49bc1%2FDocuments%2FFilms%20et%20s%C3%A9ries%2FS%C3%A9ries%2FEmpathie%2FEmpathie%2ES01E07%2EFRENCH%2E1080p%2EWEB%2EH264%2DTFA%2Emkv&parent=%2Fpersonal%2F34b3a553b5b49bc1%2FDocuments%2FFilms%20et%20s%C3%A9ries%2FS%C3%A9ries%2FEmpathie"
+                    },
+                    {
+                      title: "Épisode 8",
+                      link: "https://onedrive.live.com/?sortField=LinkFilename&isAscending=true&viewid=e094dac0%2D776b%2D420a%2Db205%2Dde2557dd4ac5&id=%2Fpersonal%2F34b3a553b5b49bc1%2FDocuments%2FFilms%20et%20s%C3%A9ries%2FS%C3%A9ries%2FEmpathie%2FEmpathie%2ES01E08%2EFRENCH%2E1080p%2EWEB%2EH264%2DTFA%2Emkv&parent=%2Fpersonal%2F34b3a553b5b49bc1%2FDocuments%2FFilms%20et%20s%C3%A9ries%2FS%C3%A9ries%2FEmpathie"
+                    },
+                    {
+                      title: "Épisode 9",
+                      link: "https://onedrive.live.com/?sortField=LinkFilename&isAscending=true&viewid=e094dac0%2D776b%2D420a%2Db205%2Dde2557dd4ac5&id=%2Fpersonal%2F34b3a553b5b49bc1%2FDocuments%2FFilms%20et%20s%C3%A9ries%2FS%C3%A9ries%2FEmpathie%2FEmpathie%2ES01E09%2EFRENCH%2E1080p%2EWEB%2EH264%2DTFA%2Emkv&parent=%2Fpersonal%2F34b3a553b5b49bc1%2FDocuments%2FFilms%20et%20s%C3%A9ries%2FS%C3%A9ries%2FEmpathie"
+                    },
+                    {
+                      title: "Épisode 10",
+                      link: "https://onedrive.live.com/?sortField=LinkFilename&isAscending=true&viewid=e094dac0%2D776b%2D420a%2Db205%2Dde2557dd4ac5&id=%2Fpersonal%2F34b3a553b5b49bc1%2FDocuments%2FFilms%20et%20s%C3%A9ries%2FS%C3%A9ries%2FEmpathie%2FEmpathie%2ES01E10%2EFiNAL%2EFRENCH%2E1080p%2EWEB%2EH264%2DTFA%20%2Emkv&parent=%2Fpersonal%2F34b3a553b5b49bc1%2FDocuments%2FFilms%20et%20s%C3%A9ries%2FS%C3%A9ries%2FEmpathie"
+                    }, // Ferme le 10e épisode
+                  ], // Ferme Saison 1
+                },
+              ],  
+            },
             {
               title: "Les Bougon",
               subItems: [
