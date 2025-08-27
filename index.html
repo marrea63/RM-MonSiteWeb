@@ -223,11 +223,10 @@
     <option value="beaupre">Beaupré</option>
     <option value="quebec">Québec</option>
   </select>
-
-<div style="position:absolute; top:30px; left:48px;">
+<div style="position:absolute; top:30px; left:28px;">
     <div id="countdown"></div>
 </div>
-<div style="position:absolute; top:30px; right:48px;">
+<div style="position:absolute; top:34px; right:48px;">
     <div id="time"></div>
 </div>
 </div>
@@ -237,7 +236,7 @@
 <!-- CSS -->
 <style>
   #countdown {
-    font-size: 36px;
+    font-size: 30px;
     font-family: 'Roboto', sans-serif;
     color: #ffffff;
     text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
@@ -245,7 +244,7 @@
 </style>
 <style>
   #time {
-    font-size: 36px;
+    font-size: 30px;
     font-family: 'Roboto', sans-serif;
     color: #ffffff;
     text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
@@ -261,7 +260,7 @@
     h = h < 10 ? "0" + h : h;
     m = m < 10 ? "0" + m : m;
     s = s < 10 ? "0" + s : s;
-    document.getElementById('time').innerHTML = "" + h + " : " + m + " : " + s;
+    document.getElementById('time').innerHTML = "" + h + ":" + m + ":" + s;
     setTimeout(startTime, 500);
   }
   startTime();
@@ -282,7 +281,7 @@
     // Fonction pour ajouter un zéro devant les chiffres < 10
     const pad = (num) => String(num).padStart(2, '0');
     document.getElementById("countdown").innerHTML =
-      `⏳ ${days} Jours ${pad(hours)} : ${pad(minutes)} : ${pad(seconds)} avant la retraite`;
+      `⏳ ${days} Jours ${pad(hours)}:${pad(minutes)}:${pad(seconds)} avant la retraite`;
   }
   setInterval(updateCountdown, 1000);
   updateCountdown();
