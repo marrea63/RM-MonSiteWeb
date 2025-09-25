@@ -1363,6 +1363,18 @@
     function capitalizeFirstLetter(str) {
       return str.charAt(0).toUpperCase() + str.slice(1);
     }
+
+  function updateDate() {
+    const now = new Date();
+    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    const formattedDate = now.toLocaleDateString('fr-FR', options);
+    document.getElementById('dateJour').textContent = capitalizeFirstLetter(formattedDate);
+    }
+
+    // Met à jour la date toutes les 60 secondes
+    setInterval(updateDate, 60000);
+    updateDate(); // Appel initial
+
     const date = new Date();
     const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
     const formattedDate = date.toLocaleDateString('fr-FR', options);
